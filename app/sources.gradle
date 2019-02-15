@@ -1,0 +1,28 @@
+apply plugin: "com.android.application"
+
+android {
+    sourceSets {
+        main {
+            main.java.srcDirs += "src/main/kotlin"
+            res.srcDirs = [
+                    "src/main/res/core",
+                    "src/main/res/main"
+            ]
+        }
+        debug {
+            debug.java.srcDirs += "src/debug/kotlin"
+            res.srcDirs = [
+                    "src/debug/res/debug"
+            ]
+        }
+        release {
+            release.java.srcDirs += "src/release/kotlin"
+            res.srcDirs = [
+                    "src/release/res/release"
+            ]
+        }
+        test {
+            test.java.srcDirs += "src/test/kotlin"
+        }
+    }
+}

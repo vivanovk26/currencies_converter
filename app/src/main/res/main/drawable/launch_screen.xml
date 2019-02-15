@@ -1,0 +1,13 @@
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+
+    <item android:drawable="@color/background"/>
+
+    <item>
+
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/ic_country_placeholder"/>
+    </item>
+</layer-list>

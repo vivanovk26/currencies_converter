@@ -1,0 +1,16 @@
+<resources>
+
+    <style name="CurrenciesConverterTheme"
+        parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Status bar color -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- Accent on CheckBoxes, EditTexts, etc. -->
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+
+    <style name="CurrenciesConverterTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+    </style>
+</resources>
