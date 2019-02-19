@@ -21,6 +21,7 @@ class CurrencyRatesInteractor(
 
     private val currencyRates: MutableList<CurrencyRate> = mutableListOf()
     private var selectedCurrencyCode: String = Currency.EUR.name
+    private var selectedCurrencyAmount: BigDecimal = BigDecimal.ONE
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun loadItems() {
@@ -31,13 +32,14 @@ class CurrencyRatesInteractor(
         selectedCurrencyCode = currencyCode
         currencyRatesRepository.getCurrencyRates(currencyCode)
             .toObservable()
-            .map {
+            .map { loadedCurrencyRates ->
                 currencyRates.clear()
-                if (it.isEmpty()) {
+                if (loadedCurrencyRates.isEmpty()) {
                     CurrencyRatesAction.EmptyAction
                 } else {
-                    currencyRates.addAll(it)
-                    CurrencyRatesAction.LoadedAction(it)
+                    loadedCurrencyRates.map { it.rate = it.rate * selectedCurrencyAmount }
+                    currencyRates.addAll(loadedCurrencyRates)
+                    CurrencyRatesAction.LoadedAction(loadedCurrencyRates)
                 }
             }
             .startWith(CurrencyRatesAction.LoadingAction)
@@ -52,8 +54,12 @@ class CurrencyRatesInteractor(
     }
 
     override fun onItemClicked(position: Int) {
-        selectedCurrencyCode = currencyRates[position].code
-        loadItems()
+        val currencyRate = currencyRates[position]
+        selectedCurrencyCode = currencyRate.code
+        selectedCurrencyAmount = currencyRate.rate
+        currencyRates.removeAt(position)
+        currencyRates.add(0, currencyRate)
+        actionsSubject.onNext(CurrencyRatesAction.LoadedAction(currencyRates))
     }
 
     override fun amountChanged(amount: BigDecimal) {

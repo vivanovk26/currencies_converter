@@ -14,6 +14,7 @@ import com.vivanov.currenciesconverter.presentation.core.views.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.getKoin
 import org.koin.android.viewmodel.ext.android.getViewModel
+import java.math.BigDecimal
 
 class CurrencyRatesActivity :
     BaseActivity<ICurrencyRatesContract.ICurrencyRatesViewModel, CurrencyRatesState>(),
@@ -57,6 +58,10 @@ class CurrencyRatesActivity :
         viewModel.eventsSubject.onNext(CurrencyRatesEvent.ItemClickedEvent(position))
     }
 
+    override fun onAmountChanged(amount: BigDecimal) {
+        viewModel.eventsSubject.onNext(CurrencyRatesEvent.AmountChangedEvent(amount))
+    }
+
     override fun subscribeOnStateChanges(state: CurrencyRatesState) {
         registerNonNullObserver(state.loading) {
             if (it) {
@@ -66,7 +71,7 @@ class CurrencyRatesActivity :
             }
         }
         registerNonNullObserver(state.currencyRates) {
-            currencyRatesAdapter.submitList(it)
+            currencyRatesAdapter.setList(it)
         }
         registerNonNullObserver(state.emptyViewVisible) {
             if (it) {

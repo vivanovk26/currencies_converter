@@ -1,47 +1,144 @@
 package com.vivanov.currenciesconverter.domain.model
 
-import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import com.example.currenciesconverter.R
 
 enum class Currency(
     @StringRes
     val description: Int,
-    @DrawableRes
-    val icon: Int
+    val icon: String
 ) {
 
-    AUD(R.string.currency_aud, R.drawable.abc_ic_ab_back_material),
-    BGN(R.string.currency_bgn, R.drawable.abc_ic_ab_back_material),
-    BRL(R.string.currency_brl, R.drawable.abc_ic_ab_back_material),
-    CAD(R.string.currency_cad, R.drawable.abc_ic_ab_back_material),
-    CHF(R.string.currency_chf, R.drawable.abc_ic_ab_back_material),
-    CNY(R.string.currency_cny, R.drawable.abc_ic_ab_back_material),
-    CZK(R.string.currency_czk, R.drawable.abc_ic_ab_back_material),
-    DKK(R.string.currency_dkk, R.drawable.abc_ic_ab_back_material),
-    EUR(R.string.currency_eur, R.drawable.abc_ic_ab_back_material),
-    GBP(R.string.currency_gbp, R.drawable.abc_ic_ab_back_material),
-    HKD(R.string.currency_hkd, R.drawable.abc_ic_ab_back_material),
-    HRK(R.string.currency_hrk, R.drawable.abc_ic_ab_back_material),
-    HUF(R.string.currency_huf, R.drawable.abc_ic_ab_back_material),
-    IDR(R.string.currency_idr, R.drawable.abc_ic_ab_back_material),
-    ILS(R.string.currency_ils, R.drawable.abc_ic_ab_back_material),
-    INR(R.string.currency_inr, R.drawable.abc_ic_ab_back_material),
-    ISK(R.string.currency_isk, R.drawable.abc_ic_ab_back_material),
-    JPY(R.string.currency_jpy, R.drawable.abc_ic_ab_back_material),
-    KRW(R.string.currency_krw, R.drawable.abc_ic_ab_back_material),
-    MXN(R.string.currency_mxn, R.drawable.abc_ic_ab_back_material),
-    MYR(R.string.currency_myr, R.drawable.abc_ic_ab_back_material),
-    NOK(R.string.currency_nok, R.drawable.abc_ic_ab_back_material),
-    NZD(R.string.currency_nzd, R.drawable.abc_ic_ab_back_material),
-    PHP(R.string.currency_php, R.drawable.abc_ic_ab_back_material),
-    PIN(R.string.currency_pln, R.drawable.abc_ic_ab_back_material),
-    RON(R.string.currency_ron, R.drawable.abc_ic_ab_back_material),
-    RUB(R.string.currency_rub, R.drawable.abc_ic_ab_back_material),
-    SEK(R.string.currency_sek, R.drawable.abc_ic_ab_back_material),
-    SGD(R.string.currency_sgd, R.drawable.abc_ic_ab_back_material),
-    THB(R.string.currency_thb, R.drawable.abc_ic_ab_back_material),
-    TRY(R.string.currency_try, R.drawable.abc_ic_ab_back_material),
-    USD(R.string.currency_usd, R.drawable.abc_ic_ab_back_material),
-    ZAR(R.string.currency_zar, R.drawable.abc_ic_ab_back_material),
+    AUD(
+        R.string.currency_aud,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Australia.png"
+    ),
+    BGN(
+        R.string.currency_bgn,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Bulgaria.png"
+    ),
+    BRL(
+        R.string.currency_brl,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Brazil.png"
+    ),
+    CAD(
+        R.string.currency_cad,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Canada.png"
+    ),
+    CHF(
+        R.string.currency_chf,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Switzerland.png"
+    ),
+    CNY(
+        R.string.currency_cny,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-China.png"
+    ),
+    CZK(
+        R.string.currency_czk,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Czech-Republic.png"
+    ),
+    DKK(
+        R.string.currency_dkk,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Denmark.png"
+    ),
+    EUR(
+        R.string.currency_eur,
+        "https://en.wikipedia.org/wiki/Flag_of_Europe#/media/File:Flag_of_Europe.svg"
+    ),
+    GBP(
+        R.string.currency_gbp,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-United-Kingdom.png"
+    ),
+    HKD(
+        R.string.currency_hkd,
+        "https://ru.wikipedia.org/wiki/%D0%93%D0%BE%D0%BD%D0%BA%D0%BE%D0%BD%D0%B3#/media/File:Flag_of_Hong_Kong.svg"
+    ),
+    HRK(
+        R.string.currency_hrk,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Croatia.png"
+    ),
+    HUF(
+        R.string.currency_huf,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Hungary.png"
+    ),
+    IDR(
+        R.string.currency_idr,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Indonesia.png"
+    ),
+    ILS(
+        R.string.currency_ils,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Israel.png"
+    ),
+    INR(
+        R.string.currency_inr,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-India.png"
+    ),
+    ISK(
+        R.string.currency_isk,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Iceland.png"
+    ),
+    JPY(
+        R.string.currency_jpy,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Japan.png"
+    ),
+    KRW(
+        R.string.currency_krw,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Korea-South.png"
+    ),
+    MXN(
+        R.string.currency_mxn,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Mexico.png"
+    ),
+    MYR(
+        R.string.currency_myr,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Malaysia.png"
+    ),
+    NOK(
+        R.string.currency_nok,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Norway.png"
+    ),
+    NZD(
+        R.string.currency_nzd,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-New-Zealand.png"
+    ),
+    PHP(
+        R.string.currency_php,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Philippines.png"
+    ),
+    PIN(
+        R.string.currency_pln,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Poland.png"
+    ),
+    RON(
+        R.string.currency_ron,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Romania.png"
+    ),
+    RUB(
+        R.string.currency_rub,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Russia.png"
+    ),
+    SEK(
+        R.string.currency_sek,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Sweden.png"
+    ),
+    SGD(
+        R.string.currency_sgd,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Singapore.png"
+    ),
+    THB(
+        R.string.currency_thb,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Thailand.png"
+    ),
+    TRY(
+        R.string.currency_try,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Turkey.png"
+    ),
+    USD(
+        R.string.currency_usd,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-United-States-of-America.png"
+    ),
+    ZAR(
+        R.string.currency_zar,
+        "https://www.countries-ofthe-world.com/flags-normal/flag-of-South-Africa.png"
+    ),
 }

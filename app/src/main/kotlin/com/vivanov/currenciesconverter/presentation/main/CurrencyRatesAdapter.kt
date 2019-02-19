@@ -6,12 +6,11 @@ import com.jakewharton.rxbinding2.view.clicks
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
 import com.vivanov.currenciesconverter.domain.model.CurrencyRate
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseAdapter
+import com.vivanov.currenciesconverter.presentation.core.adapters.BaseDiffCallback
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseViewHolder
 import kotlinx.android.synthetic.main.item_currency_rate.view.*
 
-class CurrencyRatesAdapter : BaseAdapter<CurrencyRate, CurrencyRatesAdapter.ViewHolder>(
-    CurrencyRatesDiffCallback()
-) {
+class CurrencyRatesAdapter : BaseAdapter<CurrencyRate, CurrencyRatesAdapter.ViewHolder>() {
 
     override val layoutId: Int = R.layout.item_currency_rate
 
@@ -21,10 +20,17 @@ class CurrencyRatesAdapter : BaseAdapter<CurrencyRate, CurrencyRatesAdapter.View
         return ViewHolder(itemView)
     }
 
+    override fun createDiffCallback(
+        oldList: List<CurrencyRate>,
+        newList: List<CurrencyRate>
+    ): BaseDiffCallback<CurrencyRate> {
+        return CurrencyRatesDiffCallback(oldList, newList)
+    }
+
     inner class ViewHolder(itemView: View) : BaseViewHolder<CurrencyRate>(itemView) {
 
-        override fun bind(item: CurrencyRate) {
-            itemView.sdrv.setImageResource(item.icon)
+        override fun bind(position: Int, item: CurrencyRate) {
+            itemView.sdrv.setImageURI("https://countries-ofthe-world.com/flags-normal/flag-of-Australia.png")
             itemView.tv_code.text = item.code
             itemView.tv_description.text = itemView.context.getString(item.description)
             itemView.clicks()

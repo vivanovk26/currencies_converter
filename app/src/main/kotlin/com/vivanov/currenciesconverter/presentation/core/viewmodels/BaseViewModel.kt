@@ -6,6 +6,7 @@ import android.support.annotation.CallSuper
 import com.vivanov.currenciesconverter.presentation.core.actions.IAction
 import com.vivanov.currenciesconverter.presentation.core.actions.IRefreshableAction
 import com.vivanov.currenciesconverter.presentation.core.events.IEvent
+import com.vivanov.currenciesconverter.presentation.core.events.IRefreshableEvent
 import com.vivanov.currenciesconverter.presentation.core.states.IState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -15,31 +16,40 @@ abstract class BaseViewModel<State : IState, Event : IEvent, Action : IAction> :
     IBaseViewModel<State, Event, Action>, KoinComponent {
 
     final override val eventsSubject: PublishSubject<Event> = PublishSubject.create()
+    private var lastEvent: Event? = null
     override var actionsSubject: PublishSubject<Action> = PublishSubject.create()
         set(value) {
             field = value
-            actionsDisposable.add(
+            compositeDisposable.add(
                 value.subscribe {
-                    reduce(it)
+                    reduceAction(it)
                 }
             )
         }
-    private val actionsDisposable: CompositeDisposable = CompositeDisposable()
     private var lastAction: Action? = null
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     init {
-        actionsDisposable.add(
+        compositeDisposable.add(
             eventsSubject.subscribe {
-                onEventChanged(it)
+                reduceEvent(it)
             }
         )
     }
 
     @CallSuper
-    protected fun reduce(action: Action) {
+    protected fun reduceAction(action: Action) {
         if (action != lastAction || action is IRefreshableAction) {
             lastAction = action
             onActionChanged(action)
+        }
+    }
+
+    @CallSuper
+    protected fun reduceEvent(event: Event) {
+        if (event != lastEvent || event is IRefreshableEvent) {
+            lastEvent = event
+            onEventChanged(event)
         }
     }
 
@@ -56,7 +66,7 @@ abstract class BaseViewModel<State : IState, Event : IEvent, Action : IAction> :
     }
 
     override fun onCleared() {
-        actionsDisposable.clear()
+        compositeDisposable.clear()
         scope.close()
 
         super.onCleared()

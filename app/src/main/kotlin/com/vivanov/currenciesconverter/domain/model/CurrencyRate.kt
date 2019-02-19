@@ -1,6 +1,5 @@
 package com.vivanov.currenciesconverter.domain.model
 
-import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import java.io.Serializable
 import java.math.BigDecimal
@@ -9,9 +8,8 @@ data class CurrencyRate(
     val code: String,
     @StringRes
     val description: Int,
-    @DrawableRes
-    val icon: Int,
-    val rate: BigDecimal
+    val icon: String,
+    var rate: BigDecimal
 ) : Serializable {
 
     constructor(
