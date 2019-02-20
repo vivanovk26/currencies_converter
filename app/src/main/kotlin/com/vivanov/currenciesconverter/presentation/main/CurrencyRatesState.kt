@@ -8,6 +8,5 @@ class CurrencyRatesState(
     val loading: MutableLiveData<Boolean> = MutableLiveData(),
     val currencyRates: MutableLiveData<List<CurrencyRate>> = MutableLiveData(),
     val emptyViewVisible: MutableLiveData<Boolean> = MutableLiveData(),
-    val updateList: MutableLiveData<Boolean> = MutableLiveData(),
     val error: MutableLiveData<Throwable?> = MutableLiveData()
 ) : IState

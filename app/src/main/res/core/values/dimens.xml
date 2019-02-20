@@ -17,6 +17,7 @@
     <dimen name="toolbar_spacing">@dimen/dp16</dimen>
 
     <!-- Texts sizes -->
+    <dimen name="currency_rate_amount_text">@dimen/sp20</dimen>
     <dimen name="currency_rate_code_text">@dimen/sp16</dimen>
     <dimen name="currency_rate_description_text">@dimen/sp14</dimen>
     <dimen name="empty_view_text">@dimen/sp16</dimen>

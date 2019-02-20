@@ -14,6 +14,7 @@
     <color name="background">@color/charcoal_gray</color>
     <color name="country_failure_background">@color/gray</color>
     <color name="country_placeholder_background">@color/yellow</color>
+    <color name="currency_rate_amount_text">@color/white</color>
     <color name="currency_rate_code_text">@color/gray</color>
     <color name="currency_rate_description_text">@color/black</color>
     <color name="divider">@color/cool_gray</color>

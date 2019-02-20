@@ -11,4 +11,12 @@ class CurrencyRatesDiffCallback(
     override fun areItemsTheSame(positionOld: Int, positionNew: Int): Boolean {
         return oldList[positionOld].code == newList[positionNew].code
     }
+
+    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+        return if (oldList[oldItemPosition].rate == newList[newItemPosition].rate) {
+            CurrencyRatesPayload.Rate
+        } else {
+            CurrencyRatesPayload.Empty
+        }
+    }
 }

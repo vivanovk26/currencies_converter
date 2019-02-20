@@ -14,6 +14,8 @@ interface ICurrencyRatesContract {
     interface ICurrencyRatesView : IBaseView {
 
         fun onItemClicked(position: Int)
+
+        fun onItemFocused(position: Int)
     }
 
     interface ICurrencyRatesViewModel :
@@ -25,6 +27,6 @@ interface ICurrencyRatesContract {
 
         fun onItemClicked(position: Int)
 
-        fun amountChanged(amount: BigDecimal)
+        fun amountChanged(position: Int, amount: BigDecimal)
     }
 }

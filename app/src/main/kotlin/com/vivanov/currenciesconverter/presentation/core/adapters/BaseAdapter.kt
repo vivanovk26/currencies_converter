@@ -27,14 +27,23 @@ abstract class BaseAdapter<Item, ViewHolder : BaseViewHolder<Item>> :
     protected abstract fun createViewHolder(itemView: View): ViewHolder
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(position, items[position])
+        holder.bind(items[position])
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
+        if (payloads.isEmpty()) {
+            holder.bind(items[position])
+        } else {
+            for (payload in payloads) {
+                holder.bindPayloads(items[position], payload)
+            }
+        }
     }
 
     fun setList(newList: List<Item>) {
         val diffResult = DiffUtil.calculateDiff(createDiffCallback(items, newList), true)
         items = newList
         diffResult.dispatchUpdatesTo(this)
-        notifyDataSetChanged()
     }
 
     protected abstract fun createDiffCallback(

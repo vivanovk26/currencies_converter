@@ -29,14 +29,32 @@ class CurrencyRatesAdapter : BaseAdapter<CurrencyRate, CurrencyRatesAdapter.View
 
     inner class ViewHolder(itemView: View) : BaseViewHolder<CurrencyRate>(itemView) {
 
-        override fun bind(position: Int, item: CurrencyRate) {
+        override fun bind(item: CurrencyRate) {
             itemView.sdrv.setImageURI("https://countries-ofthe-world.com/flags-normal/flag-of-Australia.png")
             itemView.tv_code.text = item.code
             itemView.tv_description.text = itemView.context.getString(item.description)
+            itemView.et_amount.setText(item.amount.toString())
+            itemView.et_amount.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    currencyRatesView.onItemFocused(adapterPosition)
+                }
+            }
             itemView.clicks()
                 .subscribe {
+                    itemView.et_amount.requestFocus()
                     currencyRatesView.onItemClicked(adapterPosition)
                 }
+        }
+
+        override fun bindPayloads(item: CurrencyRate, payload: Any) {
+            when (payload) {
+                is CurrencyRatesPayload.Rate -> {
+                    itemView.et_amount.setText(item.amount.toString())
+                }
+                else -> {
+                    bind(item)
+                }
+            }
         }
     }
 }

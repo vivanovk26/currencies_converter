@@ -6,6 +6,13 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="CurrencyRate.Amount">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:inputType">number</item>
+        <item name="android:textSize">@dimen/currency_rate_amount_text</item>
+        <item name="android:textColor">@color/currency_rate_amount_text</item>
+    </style>
+
     <style name="CurrencyRate.Code">
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">@dimen/currency_rate_code_text</item>

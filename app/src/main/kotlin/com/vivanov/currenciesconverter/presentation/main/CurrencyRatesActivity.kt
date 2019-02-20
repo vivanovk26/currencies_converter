@@ -58,8 +58,13 @@ class CurrencyRatesActivity :
         viewModel.eventsSubject.onNext(CurrencyRatesEvent.ItemClickedEvent(position))
     }
 
-    override fun onAmountChanged(amount: BigDecimal) {
-        viewModel.eventsSubject.onNext(CurrencyRatesEvent.AmountChangedEvent(amount))
+    override fun onItemFocused(position: Int) {
+        viewModel.eventsSubject.onNext(
+            CurrencyRatesEvent.AmountChangedEvent(
+                position,
+                BigDecimal.TEN
+            )
+        )
     }
 
     override fun subscribeOnStateChanges(state: CurrencyRatesState) {
@@ -80,11 +85,6 @@ class CurrencyRatesActivity :
             } else {
                 rv.visible()
                 tv_empty_view.gone()
-            }
-        }
-        registerNonNullObserver(state.updateList) {
-            if (it) {
-                currencyRatesAdapter.notifyDataSetChanged()
             }
         }
         registerNullableObserver(state.error, Observer {

@@ -4,9 +4,7 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.ViewModel
 import android.support.annotation.CallSuper
 import com.vivanov.currenciesconverter.presentation.core.actions.IAction
-import com.vivanov.currenciesconverter.presentation.core.actions.IRefreshableAction
 import com.vivanov.currenciesconverter.presentation.core.events.IEvent
-import com.vivanov.currenciesconverter.presentation.core.events.IRefreshableEvent
 import com.vivanov.currenciesconverter.presentation.core.states.IState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -39,18 +37,14 @@ abstract class BaseViewModel<State : IState, Event : IEvent, Action : IAction> :
 
     @CallSuper
     protected fun reduceAction(action: Action) {
-        if (action != lastAction || action is IRefreshableAction) {
-            lastAction = action
-            onActionChanged(action)
-        }
+        lastAction = action
+        onActionChanged(action)
     }
 
     @CallSuper
     protected fun reduceEvent(event: Event) {
-        if (event != lastEvent || event is IRefreshableEvent) {
-            lastEvent = event
-            onEventChanged(event)
-        }
+        lastEvent = event
+        onEventChanged(event)
     }
 
     override fun setupLifecycle(lifecycle: Lifecycle) {

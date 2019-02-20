@@ -11,15 +11,16 @@
         android:id="@+id/sdrv"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        fresco:actualImageScaleType="centerCrop"
+        fresco:actualImageScaleType="centerInside"
         fresco:failureImage="@drawable/ic_country_failure"
         fresco:placeholderImage="@drawable/ic_country_placeholder"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/item_currency_rate_spacing"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
@@ -37,4 +38,11 @@
             android:layout_marginTop="@dimen/item_currency_rate_spacing"
             tools:text="Euro"/>
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_amount"
+        style="@style/CurrencyRate.Amount"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"/>
 </LinearLayout>

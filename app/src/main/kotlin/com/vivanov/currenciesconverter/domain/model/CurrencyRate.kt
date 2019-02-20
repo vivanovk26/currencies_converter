@@ -9,7 +9,8 @@ data class CurrencyRate(
     @StringRes
     val description: Int,
     val icon: String,
-    var rate: BigDecimal
+    val rate: BigDecimal,
+    var amount: BigDecimal = BigDecimal.ONE
 ) : Serializable {
 
     constructor(
