@@ -1,9 +1,11 @@
 package com.vivanov.currenciesconverter.presentation.main
 
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import com.example.currenciesconverter.R
 import com.jakewharton.rxbinding2.view.clicks
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
+import com.vivanov.currenciesconverter.extensions.hideKeyboard
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseAdapter
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseDiffCallback
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseViewHolder
@@ -41,6 +43,15 @@ class CurrencyRatesAdapter : BaseAdapter<CurrencyRateVM, CurrencyRatesAdapter.Vi
                     currencyRatesView.onItemFocused(adapterPosition, itemView.et_amount)
                 }
             }
+            itemView.et_amount.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    itemView.et_amount.hideKeyboard()
+                    return@setOnEditorActionListener true
+                } else {
+                    return@setOnEditorActionListener false
+                }
+            }
+
             itemView.clicks()
                 .subscribe {
                     currencyRatesView.onItemClicked(adapterPosition)

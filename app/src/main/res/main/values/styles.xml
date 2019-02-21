@@ -9,6 +9,7 @@
     <style name="CurrencyRate.Amount">
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:inputType">number</item>
+        <item name="android:imeOptions">actionDone</item>
         <item name="android:textSize">@dimen/currency_rate_amount_text</item>
         <item name="android:textColor">@color/currency_rate_amount_text</item>
     </style>
