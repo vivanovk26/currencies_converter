@@ -10,7 +10,7 @@ import org.koin.dsl.module.module
 val appModule: Module = module {
 
     single<IAppConfig> {
-        AppConfig(get(), get())
+        AppConfig(get())
     }
 
     single<IResourcesProvider> {

@@ -6,139 +6,139 @@ import com.example.currenciesconverter.R
 enum class Currency(
     @StringRes
     val description: Int,
-    val icon: String
+    val iconCode: String
 ) {
 
     AUD(
         R.string.currency_aud,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Australia.png"
+        "AU"
     ),
     BGN(
         R.string.currency_bgn,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Bulgaria.png"
+        "BG"
     ),
     BRL(
         R.string.currency_brl,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Brazil.png"
+        "BR"
     ),
     CAD(
         R.string.currency_cad,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Canada.png"
+        "CA"
     ),
     CHF(
         R.string.currency_chf,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Switzerland.png"
+        "CH"
     ),
     CNY(
         R.string.currency_cny,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-China.png"
+        "CN"
     ),
     CZK(
         R.string.currency_czk,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Czech-Republic.png"
+        "CZ"
     ),
     DKK(
         R.string.currency_dkk,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Denmark.png"
+        "DK"
     ),
     EUR(
         R.string.currency_eur,
-        "https://en.wikipedia.org/wiki/Flag_of_Europe#/media/File:Flag_of_Europe.svg"
+        "EU"
     ),
     GBP(
         R.string.currency_gbp,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-United-Kingdom.png"
+        "GB"
     ),
     HKD(
         R.string.currency_hkd,
-        "https://ru.wikipedia.org/wiki/%D0%93%D0%BE%D0%BD%D0%BA%D0%BE%D0%BD%D0%B3#/media/File:Flag_of_Hong_Kong.svg"
+        "HK"
     ),
     HRK(
         R.string.currency_hrk,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Croatia.png"
+        "HR"
     ),
     HUF(
         R.string.currency_huf,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Hungary.png"
+        "HU"
     ),
     IDR(
         R.string.currency_idr,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Indonesia.png"
+        "ID"
     ),
     ILS(
         R.string.currency_ils,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Israel.png"
+        "IL"
     ),
     INR(
         R.string.currency_inr,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-India.png"
+        "IN"
     ),
     ISK(
         R.string.currency_isk,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Iceland.png"
+        "IS"
     ),
     JPY(
         R.string.currency_jpy,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Japan.png"
+        "JP"
     ),
     KRW(
         R.string.currency_krw,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Korea-South.png"
+        "KR"
     ),
     MXN(
         R.string.currency_mxn,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Mexico.png"
+        "MX"
     ),
     MYR(
         R.string.currency_myr,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Malaysia.png"
+        "MY"
     ),
     NOK(
         R.string.currency_nok,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Norway.png"
+        "NO"
     ),
     NZD(
         R.string.currency_nzd,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-New-Zealand.png"
+        "NZ"
     ),
     PHP(
         R.string.currency_php,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Philippines.png"
+        "PH"
     ),
     PIN(
         R.string.currency_pln,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Poland.png"
+        "PI"
     ),
     RON(
         R.string.currency_ron,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Romania.png"
+        "RO"
     ),
     RUB(
         R.string.currency_rub,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Russia.png"
+        "RU"
     ),
     SEK(
         R.string.currency_sek,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Sweden.png"
+        "SE"
     ),
     SGD(
         R.string.currency_sgd,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Singapore.png"
+        "SG"
     ),
     THB(
         R.string.currency_thb,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Thailand.png"
+        "TG"
     ),
     TRY(
         R.string.currency_try,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-Turkey.png"
+        "TR"
     ),
     USD(
         R.string.currency_usd,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-United-States-of-America.png"
+        "US"
     ),
     ZAR(
         R.string.currency_zar,
-        "https://www.countries-ofthe-world.com/flags-normal/flag-of-South-Africa.png"
+        "ZA"
     ),
 }

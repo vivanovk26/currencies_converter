@@ -2,14 +2,11 @@ package com.vivanov.currenciesconverter.data.network.mappers
 
 import com.vivanov.currenciesconverter.data.error.exceptions.ParseException
 import com.vivanov.currenciesconverter.data.network.model.responses.CurrenciesResponse
-import com.vivanov.currenciesconverter.domain.format.date.IDateFormatter
 import com.vivanov.currenciesconverter.domain.model.Currency
 import com.vivanov.currenciesconverter.domain.model.CurrencyRate
 import java.math.BigDecimal
 
-class ApiMapper(
-    private val dateFormatter: IDateFormatter
-) : IApiMapper {
+class ApiMapper : IApiMapper {
 
     override fun map(currenciesResponse: CurrenciesResponse): List<CurrencyRate> {
         if (currenciesResponse.rates == null) {

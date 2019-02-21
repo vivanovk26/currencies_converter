@@ -3,36 +3,16 @@ package com.vivanov.currenciesconverter.config.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.facebook.cache.disk.DiskCacheConfig
-import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory
 import com.vivanov.currenciesconverter.extensions.IMMLeaks
-import okhttp3.OkHttpClient
 import timber.log.Timber
 
 class AppConfig(
-    private val application: Application,
-    private val okHttpClient: OkHttpClient
+    private val application: Application
 ) : IAppConfig {
 
     override fun initAppConfig() {
-        setupFresco()
         setupActivityLifeCycleLogs()
         IMMLeaks.fixFocusedViewLeak(application)
-    }
-
-    private fun setupFresco() {
-        val diskCacheConfig = DiskCacheConfig.newBuilder(application)
-            .setBaseDirectoryName("cache")
-            .setMaxCacheSizeOnVeryLowDiskSpace((1024 * 1024 * 8).toLong())
-            .setMaxCacheSizeOnLowDiskSpace((1024 * 1024 * 16).toLong())
-            .setMaxCacheSize((1024 * 1024 * 64).toLong())
-            .build()
-        val imagePipelineConfig =
-            OkHttpImagePipelineConfigFactory.newBuilder(application, okHttpClient)
-                .setMainDiskCacheConfig(diskCacheConfig)
-                .build()
-        Fresco.initialize(application, imagePipelineConfig)
     }
 
     private fun setupActivityLifeCycleLogs() = application.registerActivityLifecycleCallbacks(

@@ -16,6 +16,7 @@ import com.vivanov.currenciesconverter.presentation.core.views.BaseActivity
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.getKoin
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.getViewModel
 import java.math.BigDecimal
 
@@ -26,7 +27,7 @@ class CurrencyRatesActivity :
     override val layoutId: Int = R.layout.activity_main
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private val currencyRatesAdapter: CurrencyRatesAdapter = CurrencyRatesAdapter()
+    private val currencyRatesAdapter: CurrencyRatesAdapter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.CurrenciesConverterTheme)

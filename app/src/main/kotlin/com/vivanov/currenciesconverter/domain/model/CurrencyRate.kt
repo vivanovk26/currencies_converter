@@ -7,7 +7,7 @@ data class CurrencyRate(
     val code: String,
     @StringRes
     val description: Int,
-    val icon: String,
+    val iconCode: String,
     val rate: BigDecimal,
     var amount: BigDecimal = BigDecimal.ONE
 ) {
@@ -15,5 +15,5 @@ data class CurrencyRate(
     constructor(
         currency: Currency,
         rate: BigDecimal
-    ) : this(currency.name, currency.description, currency.icon, rate)
+    ) : this(currency.name, currency.description, currency.iconCode, rate)
 }

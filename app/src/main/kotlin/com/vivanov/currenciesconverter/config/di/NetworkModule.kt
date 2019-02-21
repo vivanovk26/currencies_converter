@@ -10,6 +10,8 @@ import com.vivanov.currenciesconverter.data.network.mappers.ApiMapper
 import com.vivanov.currenciesconverter.data.network.mappers.IApiMapper
 import com.vivanov.currenciesconverter.data.network.services.ApiService
 import com.vivanov.currenciesconverter.data.network.services.IApiService
+import com.vivanov.currenciesconverter.data.network.services.IImageLoaderService
+import com.vivanov.currenciesconverter.data.network.services.ImageLoaderService
 import com.vivanov.currenciesconverter.extensions.IRxSchedulers
 import com.vivanov.currenciesconverter.extensions.RxSchedulers
 import okhttp3.OkHttpClient
@@ -67,7 +69,10 @@ val networkModule: Module = module {
         ApiService(get(), get(), get())
     }
     single<IApiMapper> {
-        ApiMapper(get())
+        ApiMapper()
+    }
+    single<IImageLoaderService> {
+        ImageLoaderService(get(), get())
     }
     single<IErrorHandler> {
         ErrorHandler()

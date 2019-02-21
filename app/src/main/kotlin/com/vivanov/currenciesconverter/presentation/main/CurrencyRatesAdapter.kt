@@ -4,6 +4,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.example.currenciesconverter.R
 import com.jakewharton.rxbinding2.view.clicks
+import com.vivanov.currenciesconverter.data.network.services.IImageLoaderService
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
 import com.vivanov.currenciesconverter.extensions.hideKeyboard
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseAdapter
@@ -11,7 +12,9 @@ import com.vivanov.currenciesconverter.presentation.core.adapters.BaseDiffCallba
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseViewHolder
 import kotlinx.android.synthetic.main.item_currency_rate.view.*
 
-class CurrencyRatesAdapter : BaseAdapter<CurrencyRateVM, CurrencyRatesAdapter.ViewHolder>() {
+class CurrencyRatesAdapter(
+    private val imageLoaderService: IImageLoaderService
+) : BaseAdapter<CurrencyRateVM, CurrencyRatesAdapter.ViewHolder>() {
 
     override val layoutId: Int = R.layout.item_currency_rate
 
@@ -31,7 +34,7 @@ class CurrencyRatesAdapter : BaseAdapter<CurrencyRateVM, CurrencyRatesAdapter.Vi
     inner class ViewHolder(itemView: View) : BaseViewHolder<CurrencyRateVM>(itemView) {
 
         override fun bind(item: CurrencyRateVM) {
-            itemView.sdrv.setImageURI("https://countries-ofthe-world.com/flags-normal/flag-of-Australia.png")
+            imageLoaderService.loadFlagIcon(itemView.sdrv, item.iconCode)
             itemView.tv_code.text = item.code
             itemView.tv_description.text = item.description
             itemView.tv_currency_symbol.text = item.currencySymbol

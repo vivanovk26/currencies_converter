@@ -72,7 +72,7 @@ class CurrencyRatesViewModel(
             CurrencyRateVM(
                 it.code,
                 resourcesProvider.getString(it.description),
-                it.icon,
+                it.iconCode,
                 numberFormatter.formatAmount(it.code, it.amount),
                 numberFormatter.formatCurrency(it.code)
             )
