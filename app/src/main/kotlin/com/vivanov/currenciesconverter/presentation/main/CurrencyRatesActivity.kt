@@ -61,8 +61,7 @@ class CurrencyRatesActivity :
     override fun onItemFocused(position: Int) {
         viewModel.eventsSubject.onNext(
             CurrencyRatesEvent.AmountChangedEvent(
-                position,
-                BigDecimal.TEN
+                position, BigDecimal.TEN
             )
         )
     }

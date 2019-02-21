@@ -39,10 +39,7 @@ class CurrencyRatesInteractor(
                         it.amount = it.rate.multiply(currentCurrencyRate.amount)
                     }
                     currencyRates.addAll(loadedCurrencyRates)
-                    val resultList = mutableListOf<CurrencyRate>().apply {
-                        addAll(currencyRates)
-                    }
-                    CurrencyRatesAction.UpdateListAction(resultList)
+                    CurrencyRatesAction.UpdateListAction(currencyRates)
                 }
             }
             .startWith(CurrencyRatesAction.LoadingAction)
@@ -60,10 +57,7 @@ class CurrencyRatesInteractor(
         val selectedCurrencyRate = currencyRates[position]
         currencyRates.removeAt(position)
         currencyRates.add(SELECTED_ITEM_POSITION, selectedCurrencyRate)
-        val resultList = mutableListOf<CurrencyRate>().apply {
-            addAll(currencyRates)
-        }
-        actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(resultList))
+        actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(currencyRates))
     }
 
     override fun amountChanged(position: Int, amount: BigDecimal) {
@@ -72,9 +66,6 @@ class CurrencyRatesInteractor(
             //it.amount = it.rate.multiply(currentCurrencyRate.amount)
             it.amount = amount
         }
-        val resultList = mutableListOf<CurrencyRate>().apply {
-            addAll(currencyRates)
-        }
-        actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(resultList))
+        actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(currencyRates))
     }
 }
