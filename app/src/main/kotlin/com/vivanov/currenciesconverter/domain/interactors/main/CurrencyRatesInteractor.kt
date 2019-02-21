@@ -11,6 +11,7 @@ import com.vivanov.currenciesconverter.domain.model.CurrencyRate
 import com.vivanov.currenciesconverter.extensions.IRxSchedulers
 import com.vivanov.currenciesconverter.extensions.mainThread
 import com.vivanov.currenciesconverter.presentation.main.CurrencyRatesAction
+import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
@@ -56,6 +57,7 @@ class CurrencyRatesInteractor(
                             }
                         }
                 }
+                .toFlowable(BackpressureStrategy.LATEST)
                 .startWith(CurrencyRatesAction.LoadingAction)
                 .onErrorReturn {
                     errorHandler.handleError(it)

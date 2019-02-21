@@ -1,9 +1,6 @@
 package com.vivanov.currenciesconverter.extensions
 
-import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.Single
+import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -28,6 +25,9 @@ object RxSchedulersTest : IRxSchedulers {
     override fun main(): Scheduler = Schedulers.trampoline()
 }
 
+fun <T> Flowable<T>.async(rxSchedulers: IRxSchedulers): Flowable<T> =
+    subscribeOn(rxSchedulers.io()).observeOn(rxSchedulers.main())
+
 fun <T> Observable<T>.async(rxSchedulers: IRxSchedulers): Observable<T> =
     subscribeOn(rxSchedulers.io()).observeOn(rxSchedulers.main())
 
@@ -36,6 +36,9 @@ fun <T> Single<T>.async(rxSchedulers: IRxSchedulers): Single<T> =
 
 fun Completable.async(rxSchedulers: IRxSchedulers): Completable =
     subscribeOn(rxSchedulers.io()).observeOn(rxSchedulers.main())
+
+fun <T> Flowable<T>.mainThread(rxSchedulers: IRxSchedulers): Flowable<T> =
+    subscribeOn(rxSchedulers.main()).observeOn(rxSchedulers.main())
 
 fun <T> Observable<T>.mainThread(rxSchedulers: IRxSchedulers): Observable<T> =
     subscribeOn(rxSchedulers.main()).observeOn(rxSchedulers.main())
