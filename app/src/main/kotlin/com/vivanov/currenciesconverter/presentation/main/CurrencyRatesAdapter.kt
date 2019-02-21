@@ -32,8 +32,9 @@ class CurrencyRatesAdapter : BaseAdapter<CurrencyRateVM, CurrencyRatesAdapter.Vi
             itemView.sdrv.setImageURI("https://countries-ofthe-world.com/flags-normal/flag-of-Australia.png")
             itemView.tv_code.text = item.code
             itemView.tv_description.text = item.description
+            itemView.tv_currency_symbol.text = item.currencySymbol
             if (!itemView.et_amount.hasFocus()) {
-                itemView.et_amount.setText(item.amount.toString())
+                itemView.et_amount.setText(item.amount)
             }
             itemView.et_amount.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
@@ -50,7 +51,7 @@ class CurrencyRatesAdapter : BaseAdapter<CurrencyRateVM, CurrencyRatesAdapter.Vi
         override fun bindPayloads(item: CurrencyRateVM, payload: Any) {
             when (payload) {
                 is CurrencyRatesPayload.Amount -> {
-                    itemView.et_amount.setText(item.amount.toString())
+                    itemView.et_amount.setText(item.amount)
                 }
                 else -> {
                     bind(item)

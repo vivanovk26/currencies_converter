@@ -20,7 +20,7 @@ class CurrencyRatesInteractor(
 ) : BaseInteractor<CurrencyRatesAction>(), ICurrencyRatesContract.ICurrencyRatesInteractor {
 
     private var currentCurrencyRate: CurrencyRate = CurrencyRate(
-        Currency.EUR, BigDecimal(1.0)
+        Currency.EUR, BigDecimal.ONE
     )
     private val currencyRates: MutableList<CurrencyRate> = mutableListOf(currentCurrencyRate)
 

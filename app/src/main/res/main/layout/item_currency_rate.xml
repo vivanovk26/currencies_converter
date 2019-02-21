@@ -3,7 +3,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_currency_rate_size"
+    android:layout_height="@dimen/item_currency_rate_height"
     android:orientation="horizontal"
     android:padding="@dimen/item_currency_rate_spacing">
 
@@ -42,7 +42,18 @@
     <EditText
         android:id="@+id/et_amount"
         style="@style/CurrencyRate.Amount"
-        android:layout_width="100dp"
+        android:layout_width="@dimen/item_currency_rate_amount_width"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        tools:text="200.00"/>
+
+    <TextView
+        android:id="@+id/tv_currency_symbol"
+        style="@style/CurrencyRate.Amount"
+        android:layout_width="@dimen/item_currency_rate_symbol_size"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        tools:text="$"/>
 </LinearLayout>

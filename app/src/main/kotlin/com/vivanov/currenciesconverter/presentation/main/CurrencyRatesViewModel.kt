@@ -4,12 +4,14 @@ import android.arch.lifecycle.Lifecycle
 import com.vivanov.currenciesconverter.config.di.CURRENCY_RATES_SCOPE
 import com.vivanov.currenciesconverter.data.providers.IResourcesProvider
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
+import com.vivanov.currenciesconverter.domain.format.number.INumberFormatter
 import com.vivanov.currenciesconverter.domain.model.CurrencyRate
 import com.vivanov.currenciesconverter.presentation.core.viewmodels.BaseViewModel
 import org.koin.core.scope.Scope
 
 class CurrencyRatesViewModel(
     private val resourcesProvider: IResourcesProvider,
+    private val numberFormatter: INumberFormatter,
     private val currencyRatesInteractor: ICurrencyRatesContract.ICurrencyRatesInteractor
 ) : BaseViewModel<CurrencyRatesState, CurrencyRatesEvent, CurrencyRatesAction>(),
     ICurrencyRatesContract.ICurrencyRatesViewModel {
@@ -71,7 +73,8 @@ class CurrencyRatesViewModel(
                 it.code,
                 resourcesProvider.getString(it.description),
                 it.icon,
-                it.amount
+                numberFormatter.formatAmount(it.code, it.amount),
+                numberFormatter.formatCurrency(it.code)
             )
         }
     }
