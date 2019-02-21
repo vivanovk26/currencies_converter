@@ -2,7 +2,7 @@ package com.vivanov.currenciesconverter.presentation.main
 
 sealed class CurrencyRatesPayload {
 
-    object Rate : CurrencyRatesPayload()
+    object Amount : CurrencyRatesPayload()
 
-    object Empty : CurrencyRatesPayload()
+    object Full : CurrencyRatesPayload()
 }

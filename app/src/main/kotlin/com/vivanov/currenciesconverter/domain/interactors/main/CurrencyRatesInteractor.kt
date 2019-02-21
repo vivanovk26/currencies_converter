@@ -54,17 +54,18 @@ class CurrencyRatesInteractor(
     }
 
     override fun onItemClicked(position: Int) {
-        val selectedCurrencyRate = currencyRates[position]
+        currentCurrencyRate = currencyRates[position]
         currencyRates.removeAt(position)
-        currencyRates.add(SELECTED_ITEM_POSITION, selectedCurrencyRate)
+        currencyRates.add(SELECTED_ITEM_POSITION, currentCurrencyRate)
         actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(currencyRates))
     }
 
     override fun amountChanged(position: Int, amount: BigDecimal) {
         currentCurrencyRate = currencyRates[position]
-        currencyRates.map {
-            //it.amount = it.rate.multiply(currentCurrencyRate.amount)
-            it.amount = amount
+        currencyRates.filterIndexed { index, _ ->
+            index != position
+        }.map {
+            it.amount = it.rate.multiply(amount)
         }
         actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(currencyRates))
     }

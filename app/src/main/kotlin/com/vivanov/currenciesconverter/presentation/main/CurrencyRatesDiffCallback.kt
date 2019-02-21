@@ -13,9 +13,9 @@ class CurrencyRatesDiffCallback(
 
     override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
         return if (oldList[oldItemPosition].amount == newList[newItemPosition].amount) {
-            CurrencyRatesPayload.Rate
+            CurrencyRatesPayload.Full
         } else {
-            CurrencyRatesPayload.Empty
+            CurrencyRatesPayload.Amount
         }
     }
 }

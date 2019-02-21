@@ -1,6 +1,7 @@
 package com.vivanov.currenciesconverter.domain.contracts
 
 import android.arch.lifecycle.LifecycleObserver
+import android.widget.EditText
 import com.vivanov.currenciesconverter.domain.interactors.core.IBaseInteractor
 import com.vivanov.currenciesconverter.presentation.core.viewmodels.IBaseViewModel
 import com.vivanov.currenciesconverter.presentation.core.views.IBaseView
@@ -15,7 +16,7 @@ interface ICurrencyRatesContract {
 
         fun onItemClicked(position: Int)
 
-        fun onItemFocused(position: Int)
+        fun onItemFocused(position: Int, editText: EditText)
     }
 
     interface ICurrencyRatesViewModel :

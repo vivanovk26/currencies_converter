@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.EditText
 import com.example.currenciesconverter.R
+import com.jakewharton.rxbinding2.widget.textChanges
 import com.vivanov.currenciesconverter.config.di.CURRENCY_RATES_SCOPE
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
 import com.vivanov.currenciesconverter.extensions.gone
 import com.vivanov.currenciesconverter.extensions.visible
 import com.vivanov.currenciesconverter.presentation.core.views.BaseActivity
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.getKoin
 import org.koin.android.viewmodel.ext.android.getViewModel
@@ -22,6 +25,7 @@ class CurrencyRatesActivity :
 
     override val layoutId: Int = R.layout.activity_main
 
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val currencyRatesAdapter: CurrencyRatesAdapter = CurrencyRatesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,11 +62,19 @@ class CurrencyRatesActivity :
         viewModel.eventsSubject.onNext(CurrencyRatesEvent.ItemClickedEvent(position))
     }
 
-    override fun onItemFocused(position: Int) {
-        viewModel.eventsSubject.onNext(
-            CurrencyRatesEvent.AmountChangedEvent(
-                position, BigDecimal.TEN
-            )
+    override fun onItemFocused(position: Int, editText: EditText) {
+        compositeDisposable.clear()
+        compositeDisposable.add(
+            editText.textChanges()
+                .skipInitialValue()
+                .map {
+                    it.toString()
+                }
+                .subscribe {
+                    viewModel.eventsSubject.onNext(
+                        CurrencyRatesEvent.AmountChangedEvent(position, BigDecimal(it))
+                    )
+                }
         )
     }
 
@@ -97,5 +109,11 @@ class CurrencyRatesActivity :
 
     override fun hideLoading() {
         pb.gone()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        compositeDisposable.clear()
     }
 }
