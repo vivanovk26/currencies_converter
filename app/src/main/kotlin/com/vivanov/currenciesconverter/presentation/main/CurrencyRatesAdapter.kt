@@ -4,13 +4,12 @@ import android.view.View
 import com.example.currenciesconverter.R
 import com.jakewharton.rxbinding2.view.clicks
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
-import com.vivanov.currenciesconverter.domain.model.CurrencyRate
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseAdapter
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseDiffCallback
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseViewHolder
 import kotlinx.android.synthetic.main.item_currency_rate.view.*
 
-class CurrencyRatesAdapter : BaseAdapter<CurrencyRate, CurrencyRatesAdapter.ViewHolder>() {
+class CurrencyRatesAdapter : BaseAdapter<CurrencyRateVM, CurrencyRatesAdapter.ViewHolder>() {
 
     override val layoutId: Int = R.layout.item_currency_rate
 
@@ -21,18 +20,18 @@ class CurrencyRatesAdapter : BaseAdapter<CurrencyRate, CurrencyRatesAdapter.View
     }
 
     override fun createDiffCallback(
-        oldList: List<CurrencyRate>,
-        newList: List<CurrencyRate>
-    ): BaseDiffCallback<CurrencyRate> {
+        oldList: List<CurrencyRateVM>,
+        newList: List<CurrencyRateVM>
+    ): BaseDiffCallback<CurrencyRateVM> {
         return CurrencyRatesDiffCallback(oldList, newList)
     }
 
-    inner class ViewHolder(itemView: View) : BaseViewHolder<CurrencyRate>(itemView) {
+    inner class ViewHolder(itemView: View) : BaseViewHolder<CurrencyRateVM>(itemView) {
 
-        override fun bind(item: CurrencyRate) {
+        override fun bind(item: CurrencyRateVM) {
             itemView.sdrv.setImageURI("https://countries-ofthe-world.com/flags-normal/flag-of-Australia.png")
             itemView.tv_code.text = item.code
-            itemView.tv_description.text = itemView.context.getString(item.description)
+            itemView.tv_description.text = item.description
             itemView.et_amount.setText(item.amount.toString())
             itemView.et_amount.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
@@ -46,7 +45,7 @@ class CurrencyRatesAdapter : BaseAdapter<CurrencyRate, CurrencyRatesAdapter.View
                 }
         }
 
-        override fun bindPayloads(item: CurrencyRate, payload: Any) {
+        override fun bindPayloads(item: CurrencyRateVM, payload: Any) {
             when (payload) {
                 is CurrencyRatesPayload.Rate -> {
                     itemView.et_amount.setText(item.amount.toString())

@@ -2,11 +2,14 @@ package com.vivanov.currenciesconverter.presentation.main
 
 import android.arch.lifecycle.Lifecycle
 import com.vivanov.currenciesconverter.config.di.CURRENCY_RATES_SCOPE
+import com.vivanov.currenciesconverter.data.providers.IResourcesProvider
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
+import com.vivanov.currenciesconverter.domain.model.CurrencyRate
 import com.vivanov.currenciesconverter.presentation.core.viewmodels.BaseViewModel
 import org.koin.core.scope.Scope
 
 class CurrencyRatesViewModel(
+    private val resourcesProvider: IResourcesProvider,
     private val currencyRatesInteractor: ICurrencyRatesContract.ICurrencyRatesInteractor
 ) : BaseViewModel<CurrencyRatesState, CurrencyRatesEvent, CurrencyRatesAction>(),
     ICurrencyRatesContract.ICurrencyRatesViewModel {
@@ -44,13 +47,13 @@ class CurrencyRatesViewModel(
 
             is CurrencyRatesAction.UpdateListAction -> {
                 state.loading.value = false
-                state.currencyRates.value = action.currencyRates
+                state.currencyRateVMs.value = mapToViewData(action.currencyRates)
                 state.emptyViewVisible.value = false
             }
 
             is CurrencyRatesAction.EmptyAction -> {
                 state.loading.value = false
-                state.currencyRates.value = emptyList()
+                state.currencyRateVMs.value = emptyList()
                 state.emptyViewVisible.value = true
             }
 
@@ -59,6 +62,17 @@ class CurrencyRatesViewModel(
                 state.error.value = action.error
                 state.error.value = null
             }
+        }
+    }
+
+    private fun mapToViewData(currencyRates: List<CurrencyRate>): List<CurrencyRateVM> {
+        return currencyRates.map {
+            CurrencyRateVM(
+                it.code,
+                resourcesProvider.getString(it.description),
+                it.icon,
+                it.amount
+            )
         }
     }
 }

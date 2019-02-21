@@ -75,7 +75,7 @@ class CurrencyRatesActivity :
                 hideLoading()
             }
         }
-        registerNonNullObserver(state.currencyRates) {
+        registerNonNullObserver(state.currencyRateVMs) {
             currencyRatesAdapter.setList(it)
         }
         registerNonNullObserver(state.emptyViewVisible) {
