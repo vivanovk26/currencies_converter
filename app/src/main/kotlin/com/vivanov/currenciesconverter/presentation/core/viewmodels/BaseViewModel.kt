@@ -8,6 +8,7 @@ import com.vivanov.currenciesconverter.presentation.core.events.IEvent
 import com.vivanov.currenciesconverter.presentation.core.states.IState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
+import org.koin.core.scope.Scope
 import org.koin.standalone.KoinComponent
 
 abstract class BaseViewModel<State : IState, Event : IEvent, Action : IAction> : ViewModel(),
@@ -15,7 +16,7 @@ abstract class BaseViewModel<State : IState, Event : IEvent, Action : IAction> :
 
     final override val eventsSubject: PublishSubject<Event> = PublishSubject.create()
     private var lastEvent: Event? = null
-    override var actionsSubject: PublishSubject<Action> = PublishSubject.create()
+    protected var actionsSubject: PublishSubject<Action> = PublishSubject.create()
         set(value) {
             field = value
             compositeDisposable.add(
@@ -26,6 +27,7 @@ abstract class BaseViewModel<State : IState, Event : IEvent, Action : IAction> :
         }
     private var lastAction: Action? = null
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    protected abstract val scope: Scope
 
     init {
         compositeDisposable.add(
