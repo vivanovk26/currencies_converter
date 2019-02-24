@@ -8,6 +8,6 @@
 
         <bitmap
             android:gravity="center"
-            android:src="@drawable/ic_country_failure"/>
+            android:src="@drawable/ic_splash"/>
     </item>
 </layer-list>
