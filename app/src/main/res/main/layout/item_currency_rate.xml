@@ -7,12 +7,29 @@
     android:orientation="horizontal"
     android:padding="@dimen/item_currency_rate_spacing">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/sdrv"
+    <LinearLayout
         android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        fresco:actualImageScaleType="fitCenter"
-        fresco:failureImage="@drawable/ic_country_failure"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdrv"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            fresco:actualImageScaleType="fitCenter"
+            fresco:failureImage="@drawable/ic_country_failure"/>
+
+        <TextView
+            android:id="@+id/tv_currency_symbol"
+            style="@style/CurrencyRate.Amount"
+            android:layout_width="@dimen/item_currency_rate_symbol_size"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/item_currency_rate_spacing"
+            android:gravity="center"
+            tools:text="$"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -46,13 +63,4 @@
         android:layout_gravity="center_vertical"
         android:gravity="center"
         tools:text="200.00"/>
-
-    <TextView
-        android:id="@+id/tv_currency_symbol"
-        style="@style/CurrencyRate.Amount"
-        android:layout_width="@dimen/item_currency_rate_symbol_size"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:gravity="center"
-        tools:text="$"/>
 </LinearLayout>
