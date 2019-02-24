@@ -23,10 +23,9 @@
         <TextView
             android:id="@+id/tv_currency_symbol"
             style="@style/CurrencyRate.Amount"
-            android:layout_width="@dimen/item_currency_rate_symbol_size"
+            android:layout_width="@dimen/icon_size"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/item_currency_rate_spacing"
             android:gravity="center"
             tools:text="$"/>
     </LinearLayout>
