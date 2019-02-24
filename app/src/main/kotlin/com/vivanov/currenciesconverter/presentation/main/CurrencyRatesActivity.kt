@@ -9,6 +9,7 @@ import android.widget.EditText
 import com.example.currenciesconverter.R
 import com.jakewharton.rxbinding2.widget.textChanges
 import com.vivanov.currenciesconverter.config.di.CURRENCY_RATES_SCOPE
+import com.vivanov.currenciesconverter.data.error.renderers.showError
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
 import com.vivanov.currenciesconverter.extensions.gone
 import com.vivanov.currenciesconverter.extensions.visible
@@ -103,7 +104,9 @@ class CurrencyRatesActivity :
             }
         }
         registerNullableObserver(state.error, Observer {
-            // Empty.
+            it?.let { throwable ->
+                showError(throwable)
+            }
         })
     }
 
