@@ -6,4 +6,5 @@ data class CurrencyRateVM(
     val iconCode: String,
     val amount: String,
     val currencySymbol: String
+    //val rateIsLoading: Boolean
 )

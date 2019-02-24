@@ -7,6 +7,10 @@ sealed class CurrencyRatesAction : IAction {
 
     object LoadingAction : CurrencyRatesAction()
 
+    data class LoadedListAction(
+        val currencyRates: List<CurrencyRate>
+    ) : CurrencyRatesAction()
+
     data class UpdateListAction(
         val currencyRates: List<CurrencyRate>
     ) : CurrencyRatesAction()

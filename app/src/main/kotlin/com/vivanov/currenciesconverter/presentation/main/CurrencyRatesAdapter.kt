@@ -65,7 +65,9 @@ class CurrencyRatesAdapter(
         override fun bindPayloads(item: CurrencyRateVM, payload: Any) {
             when (payload) {
                 is CurrencyRatesPayload.Amount -> {
-                    itemView.et_amount.setText(item.amount)
+                    if (!itemView.et_amount.hasFocus()) {
+                        itemView.et_amount.setText(item.amount)
+                    }
                 }
                 else -> {
                     bind(item)

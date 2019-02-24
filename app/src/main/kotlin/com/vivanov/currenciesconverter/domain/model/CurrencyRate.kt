@@ -8,7 +8,7 @@ data class CurrencyRate(
     @StringRes
     val description: Int,
     val iconCode: String,
-    val rate: BigDecimal,
+    var rate: BigDecimal,
     var amount: BigDecimal = BigDecimal.ONE
 ) {
 

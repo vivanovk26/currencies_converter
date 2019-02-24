@@ -10,10 +10,16 @@
 
         <include layout="@layout/toolbar"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swrl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
     <TextView
@@ -25,10 +31,12 @@
         android:text="@string/currency_rates_empty_view"
         android:visibility="gone"/>
 
-    <ProgressBar
-        android:id="@+id/pb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
+    <FrameLayout
+        android:id="@+id/fl_block"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50000000"
+        android:clickable="true"
+        android:descendantFocusability="blocksDescendants"
+        android:focusable="true"/>
 </FrameLayout>

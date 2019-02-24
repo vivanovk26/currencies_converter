@@ -30,30 +30,25 @@ class CurrencyRatesInteractor(
     private var currentCurrencyRate: CurrencyRate = CurrencyRate(
         Currency.EUR, BigDecimal.ONE
     )
-    private val currencyRates: MutableList<CurrencyRate> = mutableListOf()
+    private val currencyRates: MutableList<CurrencyRate> = mutableListOf(currentCurrencyRate)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun startUpdates() {
-        loadItems(currentCurrencyRate)
+        loadItems()
     }
 
-    override fun loadItems(currencyRate: CurrencyRate) {
+    override fun loadItems() {
         compositeDisposable.add(
             Observable.interval(UPDATE_PERIOD, TimeUnit.SECONDS)
                 .flatMap {
-                    currencyRatesRepository.getCurrencyRates(currencyRate.code)
+                    currencyRatesRepository.getCurrencyRates(currentCurrencyRate.code)
                         .toObservable()
-                        .map { loadedCurrencyRates ->
-                            if (loadedCurrencyRates.isEmpty()) {
+                        .map { newCurrencyRates ->
+                            if (newCurrencyRates.isEmpty()) {
                                 CurrencyRatesAction.EmptyAction
                             } else {
-                                loadedCurrencyRates.map {
-                                    it.amount = it.rate.multiply(currentCurrencyRate.amount)
-                                }
-                                currencyRates.clear()
-                                currencyRates.add(currencyRate)
-                                currencyRates.addAll(loadedCurrencyRates)
-                                CurrencyRatesAction.UpdateListAction(currencyRates)
+                                mergeList(newCurrencyRates)
+                                CurrencyRatesAction.LoadedListAction(currencyRates)
                             }
                         }
                 }
@@ -70,17 +65,54 @@ class CurrencyRatesInteractor(
         )
     }
 
+    private fun mergeList(newCurrencyRates: List<CurrencyRate>) {
+        newCurrencyRates.map {
+            it.amount = it.rate.multiply(currentCurrencyRate.amount)
+        }
+        newCurrencyRates.forEach { newCurrencyRate ->
+            val mergedCurrencyRate = currencyRates.find {
+                it.code == newCurrencyRate.code
+            }
+            if (mergedCurrencyRate == null) {
+                currencyRates.add(newCurrencyRate)
+            } else {
+                mergedCurrencyRate.rate = newCurrencyRate.rate
+                mergedCurrencyRate.amount = newCurrencyRate.amount
+            }
+        }
+    }
+
     override fun onItemClicked(position: Int) {
+        if (currencyRates[position].code != currentCurrencyRate.code) {
+            reloadCurrencyRates(position)
+            replaceCurrencyRates(position)
+        } else if (position != SELECTED_ITEM_POSITION) {
+            replaceCurrencyRates(position)
+        }
+    }
+
+    private fun reloadCurrencyRates(position: Int) {
+        compositeDisposable.clear()
         currentCurrencyRate = currencyRates[position]
+        loadItems()
+    }
+
+    private fun replaceCurrencyRates(position: Int) {
         currencyRates.removeAt(position)
         currencyRates.add(SELECTED_ITEM_POSITION, currentCurrencyRate)
         actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(currencyRates))
-        compositeDisposable.clear()
-        loadItems(currentCurrencyRate)
     }
 
     override fun amountChanged(position: Int, amount: BigDecimal) {
-        currentCurrencyRate = currencyRates[position]
+        currencyRates[position].amount = amount
+        if (currencyRates[position].code == currentCurrencyRate.code) {
+            updateCurrencyRateAmounts(position, amount)
+        } else {
+            reloadCurrencyRates(position)
+        }
+    }
+
+    private fun updateCurrencyRateAmounts(position: Int, amount: BigDecimal) {
         currencyRates.filterIndexed { index, _ ->
             index != position
         }.map {

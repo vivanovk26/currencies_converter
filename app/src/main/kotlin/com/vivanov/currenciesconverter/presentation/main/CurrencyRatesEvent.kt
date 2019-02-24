@@ -13,4 +13,6 @@ sealed class CurrencyRatesEvent : IEvent {
         val position: Int,
         val amount: BigDecimal
     ) : CurrencyRatesEvent()
+
+    object OnRefreshEvent : CurrencyRatesEvent()
 }

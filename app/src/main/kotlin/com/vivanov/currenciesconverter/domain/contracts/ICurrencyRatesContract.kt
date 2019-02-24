@@ -3,7 +3,6 @@ package com.vivanov.currenciesconverter.domain.contracts
 import android.arch.lifecycle.LifecycleObserver
 import android.widget.EditText
 import com.vivanov.currenciesconverter.domain.interactors.core.IBaseInteractor
-import com.vivanov.currenciesconverter.domain.model.CurrencyRate
 import com.vivanov.currenciesconverter.presentation.core.viewmodels.IBaseViewModel
 import com.vivanov.currenciesconverter.presentation.core.views.IBaseView
 import com.vivanov.currenciesconverter.presentation.main.CurrencyRatesAction
@@ -25,7 +24,7 @@ interface ICurrencyRatesContract {
 
     interface ICurrencyRatesInteractor : IBaseInteractor<CurrencyRatesAction>, LifecycleObserver {
 
-        fun loadItems(currencyRate: CurrencyRate)
+        fun loadItems()
 
         fun onItemClicked(position: Int)
 

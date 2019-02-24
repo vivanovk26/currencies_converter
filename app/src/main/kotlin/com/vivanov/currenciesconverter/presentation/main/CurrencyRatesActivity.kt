@@ -47,6 +47,9 @@ class CurrencyRatesActivity :
     }
 
     private fun setupRecyclerView() {
+        swrl.setOnRefreshListener {
+            viewModel.eventsSubject.onNext(CurrencyRatesEvent.OnRefreshEvent)
+        }
         rv.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this)
         rv.layoutManager = layoutManager
@@ -105,11 +108,13 @@ class CurrencyRatesActivity :
     }
 
     override fun showLoading() {
-        pb.visible()
+        swrl.isRefreshing = true
+        fl_block.visible()
     }
 
     override fun hideLoading() {
-        pb.gone()
+        swrl.isRefreshing = false
+        fl_block.gone()
     }
 
     override fun onDestroy() {
