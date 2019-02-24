@@ -9,6 +9,7 @@ import android.widget.EditText
 import com.example.currenciesconverter.R
 import com.jakewharton.rxbinding2.widget.textChanges
 import com.vivanov.currenciesconverter.config.di.CURRENCY_RATES_SCOPE
+import com.vivanov.currenciesconverter.data.error.renderers.showError
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
 import com.vivanov.currenciesconverter.extensions.gone
 import com.vivanov.currenciesconverter.extensions.visible
@@ -47,6 +48,9 @@ class CurrencyRatesActivity :
     }
 
     private fun setupRecyclerView() {
+        swrl.setOnRefreshListener {
+            viewModel.eventsSubject.onNext(CurrencyRatesEvent.OnRefreshEvent)
+        }
         rv.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this)
         rv.layoutManager = layoutManager
@@ -100,16 +104,20 @@ class CurrencyRatesActivity :
             }
         }
         registerNullableObserver(state.error, Observer {
-            // Empty.
+            it?.let { throwable ->
+                showError(throwable)
+            }
         })
     }
 
     override fun showLoading() {
-        pb.visible()
+        swrl.isRefreshing = true
+        fl_block.visible()
     }
 
     override fun hideLoading() {
-        pb.gone()
+        swrl.isRefreshing = false
+        fl_block.gone()
     }
 
     override fun onDestroy() {

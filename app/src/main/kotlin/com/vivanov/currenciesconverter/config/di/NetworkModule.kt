@@ -3,8 +3,8 @@ package com.vivanov.currenciesconverter.config.di
 import com.example.currenciesconverter.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.vivanov.currenciesconverter.data.error.handlers.ErrorHandler
-import com.vivanov.currenciesconverter.data.error.handlers.IErrorHandler
+import com.vivanov.currenciesconverter.data.error.mappers.ErrorMapper
+import com.vivanov.currenciesconverter.data.error.mappers.IErrorMapper
 import com.vivanov.currenciesconverter.data.network.api.CurrenciesConverterApi
 import com.vivanov.currenciesconverter.data.network.mappers.ApiMapper
 import com.vivanov.currenciesconverter.data.network.mappers.IApiMapper
@@ -74,7 +74,7 @@ val networkModule: Module = module {
     single<IImageLoaderService> {
         ImageLoaderService(get(), get())
     }
-    single<IErrorHandler> {
-        ErrorHandler()
+    single<IErrorMapper> {
+        ErrorMapper()
     }
 }

@@ -37,6 +37,10 @@ class CurrencyRatesViewModel(
             is CurrencyRatesEvent.AmountChangedEvent -> {
                 currencyRatesInteractor.amountChanged(event.position, event.amount)
             }
+
+            is CurrencyRatesEvent.OnRefreshEvent -> {
+                currencyRatesInteractor.loadItems()
+            }
         }
     }
 
@@ -47,10 +51,14 @@ class CurrencyRatesViewModel(
                 state.loading.value = true
             }
 
-            is CurrencyRatesAction.UpdateListAction -> {
+            is CurrencyRatesAction.LoadedListAction -> {
                 state.loading.value = false
                 state.currencyRateVMs.value = mapToViewData(action.currencyRates)
                 state.emptyViewVisible.value = false
+            }
+
+            is CurrencyRatesAction.UpdateListAction -> {
+                state.currencyRateVMs.value = mapToViewData(action.currencyRates)
             }
 
             is CurrencyRatesAction.EmptyAction -> {

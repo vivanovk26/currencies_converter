@@ -5,6 +5,7 @@
     <dimen name="dp32">32dp</dimen>
     <dimen name="dp64">64dp</dimen>
     <dimen name="dp96">96dp</dimen>
+    <dimen name="dp128">128dp</dimen>
 
     <!-- Texts -->
     <dimen name="sp14">14sp</dimen>
@@ -13,7 +14,7 @@
 
     <!-- Views sizes -->
     <dimen name="item_currency_rate_amount_width">@dimen/dp96</dimen>
-    <dimen name="item_currency_rate_height">@dimen/dp96</dimen>
+    <dimen name="item_currency_rate_height">@dimen/dp128</dimen>
     <dimen name="item_currency_rate_spacing">@dimen/dp16</dimen>
     <dimen name="item_currency_rate_symbol_size">@dimen/dp32</dimen>
     <dimen name="icon_size">@dimen/dp64</dimen>
