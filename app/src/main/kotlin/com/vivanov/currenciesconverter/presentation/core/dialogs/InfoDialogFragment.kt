@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatDialogFragment
-import com.example.currenciesconverter.R
+import com.vivanov.currenciesconverter.R
 
 const val EXTRA_DIALOG_TITLE: String = "EXTRA_DIALOG_TITLE"
 const val EXTRA_DIALOG_MESSAGE: String = "EXTRA_DIALOG_MESSAGE"

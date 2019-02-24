@@ -1,7 +1,7 @@
 package com.vivanov.currenciesconverter.config.app
 
 import android.app.Application
-import com.example.currenciesconverter.BuildConfig
+import com.vivanov.currenciesconverter.BuildConfig
 import com.vivanov.currenciesconverter.config.di.KoinModules
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.startKoin

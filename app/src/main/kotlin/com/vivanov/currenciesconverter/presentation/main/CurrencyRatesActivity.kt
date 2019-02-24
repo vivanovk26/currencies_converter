@@ -6,8 +6,8 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.EditText
-import com.example.currenciesconverter.R
 import com.jakewharton.rxbinding2.widget.textChanges
+import com.vivanov.currenciesconverter.R
 import com.vivanov.currenciesconverter.config.di.CURRENCY_RATES_SCOPE
 import com.vivanov.currenciesconverter.data.error.renderers.showError
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract

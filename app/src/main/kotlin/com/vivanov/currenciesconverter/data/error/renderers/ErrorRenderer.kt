@@ -1,7 +1,7 @@
 package com.vivanov.currenciesconverter.data.error.renderers
 
 import android.support.v7.app.AppCompatActivity
-import com.example.currenciesconverter.R
+import com.vivanov.currenciesconverter.R
 import com.vivanov.currenciesconverter.data.error.exceptions.ApiException
 import com.vivanov.currenciesconverter.data.error.exceptions.ConnectionException
 import com.vivanov.currenciesconverter.data.error.exceptions.ParseException

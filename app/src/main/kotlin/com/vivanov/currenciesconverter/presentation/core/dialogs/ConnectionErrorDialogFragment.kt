@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.support.v7.app.AppCompatDialogFragment
-import com.example.currenciesconverter.R
+import com.vivanov.currenciesconverter.R
 
 class ConnectionErrorDialogFragment : AppCompatDialogFragment() {
 

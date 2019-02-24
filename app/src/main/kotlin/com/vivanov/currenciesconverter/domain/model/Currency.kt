@@ -1,7 +1,7 @@
 package com.vivanov.currenciesconverter.domain.model
 
 import android.support.annotation.StringRes
-import com.example.currenciesconverter.R
+import com.vivanov.currenciesconverter.R
 
 enum class Currency(
     @StringRes
