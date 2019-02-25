@@ -66,7 +66,7 @@ val networkModule: Module = module {
         RxSchedulers
     }
     single<IApiService> {
-        ApiService(get(), get(), get())
+        ApiService(get(), get(), get(), get())
     }
     single<IApiMapper> {
         ApiMapper()
@@ -75,6 +75,6 @@ val networkModule: Module = module {
         ImageLoaderService(get(), get())
     }
     single<IErrorMapper> {
-        ErrorMapper()
+        ErrorMapper(get())
     }
 }

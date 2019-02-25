@@ -3,6 +3,7 @@
     <!-- Errors -->
     <string name="error">Error</string>
     <string name="error_connection">Connection error</string>
+    <string name="error_invalid_base_currency">Invalid base currency</string>
     <string name="error_invalid_server_data">Wrong data format</string>
     <string name="error_unexpected">Unexpected error</string>
 </resources>

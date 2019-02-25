@@ -2,7 +2,6 @@ package com.vivanov.currenciesconverter.domain.interactors.main
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
-import com.vivanov.currenciesconverter.data.error.mappers.IErrorMapper
 import com.vivanov.currenciesconverter.data.repositories.ICurrencyRatesRepository
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
 import com.vivanov.currenciesconverter.domain.interactors.core.BaseInteractor
@@ -22,7 +21,6 @@ private const val UPDATE_PERIOD: Long = 1L
 
 class CurrencyRatesInteractor(
     private val currencyRatesRepository: ICurrencyRatesRepository,
-    private val errorMapper: IErrorMapper,
     private val rxSchedulers: IRxSchedulers
 ) : BaseInteractor<CurrencyRatesAction>(), ICurrencyRatesContract.ICurrencyRatesInteractor {
 
@@ -55,7 +53,7 @@ class CurrencyRatesInteractor(
                 .toFlowable(BackpressureStrategy.LATEST)
                 .startWith(CurrencyRatesAction.LoadingAction)
                 .onErrorReturn {
-                    CurrencyRatesAction.ErrorAction(errorMapper.map(it))
+                    CurrencyRatesAction.ErrorAction(it)
                 }
                 .mainThread(rxSchedulers)
                 .subscribe {
