@@ -18,7 +18,7 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 private const val SELECTED_ITEM_POSITION: Int = 0
-private const val UPDATE_PERIOD: Long = 5L
+private const val UPDATE_PERIOD: Long = 1L
 
 class CurrencyRatesInteractor(
     private val currencyRatesRepository: ICurrencyRatesRepository,

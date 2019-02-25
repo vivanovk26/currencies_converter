@@ -2,20 +2,22 @@ package com.vivanov.currenciesconverter.extensions;
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.os.Looper;
-import android.os.MessageQueue;
-import android.util.Log;
+import android.os.MessageQueue.IdleHandler;
 import android.view.View;
+import android.view.View.OnAttachStateChangeListener;
 import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import timber.log.Timber;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.os.Build.VERSION.SDK_INT;
@@ -56,11 +58,11 @@ public class IMMLeaks {
             focusInMethod = InputMethodManager.class.getDeclaredMethod("focusIn", View.class);
             focusInMethod.setAccessible(true);
         } catch (NoSuchMethodException | NoSuchFieldException unexpected) {
-            Log.e("IMMLeaks", "Unexpected reflection exception", unexpected);
+            Timber.e("IMMLeaks: Unexpected reflection exception: $unexpected");
             return;
         }
 
-        application.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+        application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
 
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -104,8 +106,7 @@ public class IMMLeaks {
         });
     }
 
-    static class ReferenceCleaner
-            implements MessageQueue.IdleHandler, View.OnAttachStateChangeListener, ViewTreeObserver.OnGlobalFocusChangeListener {
+    static class ReferenceCleaner implements IdleHandler, OnAttachStateChangeListener, OnGlobalFocusChangeListener {
 
         private final InputMethodManager inputMethodManager;
         private final Field mHField;
@@ -147,16 +148,16 @@ public class IMMLeaks {
 
         @Override
         public boolean queueIdle() {
-            clearInputMethodManagerLeak();
+            this.clearInputMethodManagerLeak();
             return false;
         }
 
         private void clearInputMethodManagerLeak() {
             try {
-                Object lock = mHField.get(inputMethodManager);
+                Object lock = this.mHField.get(this.inputMethodManager);
                 // This is highly dependent on the InputMethodManager implementation.
                 synchronized (lock) {
-                    View servedView = (View) mServedViewField.get(inputMethodManager);
+                    View servedView = (View) this.mServedViewField.get(this.inputMethodManager);
                     if (servedView != null) {
 
                         boolean servedViewAttached = servedView.getWindowVisibility() != View.GONE;
@@ -170,16 +171,16 @@ public class IMMLeaks {
                             servedView.addOnAttachStateChangeListener(this);
                         } else {
                             // servedView is not attached. InputMethodManager is being stupid!
-                            Activity activity = extractActivity(servedView.getContext());
+                            Activity activity = this.extractActivity(servedView.getContext());
                             if (activity == null || activity.getWindow() == null) {
                                 // Unlikely case. Let's finish the input anyways.
-                                finishInputLockedMethod.invoke(inputMethodManager);
+                                this.finishInputLockedMethod.invoke(this.inputMethodManager);
                             } else {
                                 View decorView = activity.getWindow()
                                         .peekDecorView();
                                 boolean windowAttached = decorView.getWindowVisibility() != View.GONE;
                                 if (!windowAttached) {
-                                    finishInputLockedMethod.invoke(inputMethodManager);
+                                    this.finishInputLockedMethod.invoke(this.inputMethodManager);
                                 } else {
                                     decorView.requestFocusFromTouch();
                                 }
@@ -188,7 +189,7 @@ public class IMMLeaks {
                     }
                 }
             } catch (IllegalAccessException | InvocationTargetException unexpected) {
-                Log.e("IMMLeaks", "Unexpected reflection exception", unexpected);
+                Timber.e("IMMLeaks: Unexpected reflection exception: $unexpected");
             }
         }
 

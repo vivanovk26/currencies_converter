@@ -2,8 +2,8 @@ package com.vivanov.currenciesconverter.presentation.main
 
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import com.example.currenciesconverter.R
 import com.jakewharton.rxbinding2.view.clicks
+import com.vivanov.currenciesconverter.R
 import com.vivanov.currenciesconverter.data.network.services.IImageLoaderService
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
 import com.vivanov.currenciesconverter.extensions.hideKeyboard

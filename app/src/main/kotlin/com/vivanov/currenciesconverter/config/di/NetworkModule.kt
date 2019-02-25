@@ -1,8 +1,8 @@
 package com.vivanov.currenciesconverter.config.di
 
-import com.example.currenciesconverter.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.vivanov.currenciesconverter.BuildConfig
 import com.vivanov.currenciesconverter.data.error.mappers.ErrorMapper
 import com.vivanov.currenciesconverter.data.error.mappers.IErrorMapper
 import com.vivanov.currenciesconverter.data.network.api.CurrenciesConverterApi

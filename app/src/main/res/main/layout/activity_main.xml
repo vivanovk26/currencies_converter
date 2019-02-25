@@ -1,6 +1,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -18,7 +19,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_currency_rate"/>
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
@@ -30,13 +32,4 @@
         android:layout_gravity="center"
         android:text="@string/currency_rates_empty_view"
         android:visibility="gone"/>
-
-    <FrameLayout
-        android:id="@+id/fl_block"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#50000000"
-        android:clickable="true"
-        android:descendantFocusability="blocksDescendants"
-        android:focusable="true"/>
 </FrameLayout>
