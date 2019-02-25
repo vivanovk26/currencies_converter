@@ -1,5 +1,6 @@
 package com.vivanov.currenciesconverter.presentation.main
 
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.jakewharton.rxbinding2.view.clicks
@@ -57,8 +58,10 @@ class CurrencyRatesAdapter(
 
             itemView.clicks()
                 .subscribe {
-                    currencyRatesView.onItemClicked(adapterPosition)
-                    itemView.et_amount.requestFocus()
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        currencyRatesView.onItemClicked(adapterPosition)
+                        itemView.et_amount.requestFocus()
+                    }
                 }
         }
 
