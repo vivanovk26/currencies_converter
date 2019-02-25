@@ -17,18 +17,18 @@ run tests in IntelliJ or Android Studio. More information is here [spek].
  Tech stack:
 * [Kotlin][kotlin]
 * [Android Architecture Components][arch]
+* [Fresco][fresco]
 * [Koin][koin]
 * [Rxjava 2][rxjava]
 * [Retrofit 2][retrofit]
 * [Spek][spek]
-* [Stetho][stetho]
 * [Timber][timber]
 
 [kotlin]: http://kotlinlang.org
 [arch]: https://developer.android.com/arch
+[fresco]: https://frescolib.org/
 [koin]: https://insert-koin.io/
 [rxjava]: https://github.com/ReactiveX/RxJava
 [retrofit]: http://square.github.io/retrofit
 [spek]: https://spekframework.org/
-[stetho]: http://facebook.github.io/stetho/
 [timber]: https://github.com/JakeWharton/timber
