@@ -1,7 +1,6 @@
 package com.vivanov.currenciesconverter.data.providers
 
 import android.content.Context
-import android.support.annotation.ArrayRes
 import android.support.annotation.StringRes
 
 class ResourcesProvider(
@@ -14,9 +13,5 @@ class ResourcesProvider(
 
     override fun getString(@StringRes resId: Int, vararg args: Any): String {
         return context.getString(resId, *args)
-    }
-
-    override fun getStringList(@ArrayRes resId: Int): List<String> {
-        return context.resources.getStringArray(resId).toList()
     }
 }

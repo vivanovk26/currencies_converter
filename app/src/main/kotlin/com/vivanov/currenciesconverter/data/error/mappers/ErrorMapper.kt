@@ -33,9 +33,7 @@ class ErrorMapper(
             HTTP_CODE_422 -> {
                 ApiException(
                     HTTP_CODE_422,
-                    resourcesProvider.getString(
-                        R.string.error_invalid_base_currency
-                    )
+                    resourcesProvider.getString(R.string.error_invalid_base_currency)
                 )
             }
             else -> ConnectionException()
