@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import com.vivanov.currenciesconverter.BuildConfig
-import com.vivanov.currenciesconverter.extensions.IMMLeaks
 import timber.log.Timber
 
 class AppConfig(
@@ -14,7 +13,6 @@ class AppConfig(
     override fun initAppConfig() {
         setupTimber()
         setupActivityLifeCycleLogs()
-        IMMLeaks.fixFocusedViewLeak(application)
     }
 
     private fun setupTimber() {

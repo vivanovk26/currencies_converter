@@ -62,5 +62,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:gravity="center"
+        tools:ignore="Autofill"
         tools:text="200.00"/>
 </LinearLayout>
