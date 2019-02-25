@@ -10,12 +10,12 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import org.koin.core.scope.Scope
 import org.koin.standalone.KoinComponent
+import timber.log.Timber
 
 abstract class BaseViewModel<State : IState, Event : IEvent, Action : IAction> : ViewModel(),
     IBaseViewModel<State, Event, Action>, KoinComponent {
 
     final override val eventsSubject: PublishSubject<Event> = PublishSubject.create()
-    private var lastEvent: Event? = null
     protected var actionsSubject: PublishSubject<Action> = PublishSubject.create()
         set(value) {
             field = value
@@ -25,7 +25,6 @@ abstract class BaseViewModel<State : IState, Event : IEvent, Action : IAction> :
                 }
             )
         }
-    private var lastAction: Action? = null
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     protected abstract val scope: Scope
 
@@ -39,13 +38,13 @@ abstract class BaseViewModel<State : IState, Event : IEvent, Action : IAction> :
 
     @CallSuper
     protected fun reduceAction(action: Action) {
-        lastAction = action
+        Timber.d("Action: $action")
         onActionChanged(action)
     }
 
     @CallSuper
     protected fun reduceEvent(event: Event) {
-        lastEvent = event
+        Timber.d("Event: $event")
         onEventChanged(event)
     }
 

@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
 import io.reactivex.Observable
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 fun View.visible() {
@@ -43,6 +44,7 @@ fun View.hideKeyboard(): Boolean {
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         return inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
     } catch (ignored: RuntimeException) {
+        Timber.e("HideKeyboard: ${ignored.message}")
     }
     return false
 }

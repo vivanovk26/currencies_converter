@@ -1,5 +1,6 @@
 package com.vivanov.currenciesconverter.domain.format.date
 
+import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,6 +16,7 @@ class DateFormatter(
         return try {
             `yyyy-MM-dd`.parse(serverDate).time
         } catch (e: ParseException) {
+            Timber.e("DateFormatter: ${e.message}")
             return 0L
         }
     }
