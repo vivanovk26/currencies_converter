@@ -8,12 +8,10 @@
     <color name="gray">#a9a9ab</color>
     <color name="green">#bed600</color>
     <color name="gunmental">#535457</color>
-    <color name="yellow">#f7a800</color>
     <color name="white">#ffffff</color>
 
     <color name="background">@color/charcoal_gray</color>
     <color name="country_failure_background">@color/gray</color>
-    <color name="country_placeholder_background">@color/yellow</color>
     <color name="currency_rate_amount_text">@color/white</color>
     <color name="currency_rate_code_text">@color/gray</color>
     <color name="currency_rate_description_text">@color/black</color>
