@@ -17,6 +17,8 @@
     <color name="currency_rate_description_text">@color/black</color>
     <color name="divider">@color/cool_gray</color>
     <color name="empty_view_text">@color/black</color>
+    <color name="ic_launcher_background">@color/white</color>
+    <color name="launch_screen_background">@color/gunmental</color>
     <color name="toolbar_background">@color/gunmental</color>
     <color name="toolbar_title_text">@color/white</color>
 </resources>
