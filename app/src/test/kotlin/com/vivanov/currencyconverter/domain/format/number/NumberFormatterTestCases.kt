@@ -17,8 +17,11 @@ class NumberFormatterTestCases : Spek({
 
             it("check correct output after formatting") {
 
+                val currencyCode = Currency.USD.name
+                val rate = BigDecimal.TEN
+                val text = "10.00"
                 Assertions.assertEquals(
-                    numberFormatter.formatAmount(Currency.USD.name, BigDecimal.TEN), "10.00"
+                    numberFormatter.formatAmount(currencyCode, rate), text
                 )
             }
         }

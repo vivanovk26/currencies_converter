@@ -26,6 +26,7 @@ class ApiMapperTestCases : Spek({
             val invalidCurrencyRate = 0.0
 
             it("check invalid rates in CurrenciesResponse") {
+
                 val invalidCurrenciesResponse = CurrenciesResponse("", "", null)
                 Assertions.assertThrows(ParseException::class.java) {
                     apiMapper.map(invalidCurrenciesResponse)
