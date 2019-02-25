@@ -4,9 +4,11 @@
  Project demonstrates a currency board. Each row has an EditText to calculate rate in other
 currencies. Data updates every 1 second. Please notice that every time you change row (by item
 click or changing text) application needs to refresh currency rate.
+ 
  Under the hood it's glance implementation of MVI pattern. View send Events to a presenter
 (ViewModel) and subscribes to State fields (LiveData). This fields are changed by Actions sent from
 business logic (Interactors).
+ 
  Project uses [Spek][spek] for unit testing. You need to setup Spek Framework plugin if you want to
 run tests in IntelliJ or Android Studio. More information is here [spek].
 
