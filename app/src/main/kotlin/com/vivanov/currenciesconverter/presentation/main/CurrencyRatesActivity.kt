@@ -73,7 +73,12 @@ class CurrencyRatesActivity :
             editText.textChanges()
                 .skipInitialValue()
                 .map {
-                    it.toString()
+                    if (it.toString().isEmpty()) {
+                        editText.setText("0")
+                        "0"
+                    } else {
+                        it.toString()
+                    }
                 }
                 .subscribe {
                     viewModel.eventsSubject.onNext(

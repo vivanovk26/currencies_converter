@@ -22,7 +22,7 @@ val currencyRatesModule: Module = module {
         get<CurrencyRatesViewModel>()
     }
     scope<ICurrencyRatesContract.ICurrencyRatesInteractor>(CURRENCY_RATES_SCOPE) {
-        CurrencyRatesInteractor(get(), get())
+        CurrencyRatesInteractor(get())
     }
     scope<ICurrencyRatesRepository>(CURRENCY_RATES_SCOPE) {
         CurrencyRatesRepository(get())

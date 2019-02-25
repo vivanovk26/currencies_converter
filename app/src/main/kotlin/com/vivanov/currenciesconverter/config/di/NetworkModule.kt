@@ -12,8 +12,6 @@ import com.vivanov.currenciesconverter.data.network.services.ApiService
 import com.vivanov.currenciesconverter.data.network.services.IApiService
 import com.vivanov.currenciesconverter.data.network.services.IImageLoaderService
 import com.vivanov.currenciesconverter.data.network.services.ImageLoaderService
-import com.vivanov.currenciesconverter.extensions.IRxSchedulers
-import com.vivanov.currenciesconverter.extensions.RxSchedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.Module
@@ -62,11 +60,8 @@ val networkModule: Module = module {
     single<Gson> {
         GsonBuilder().create()
     }
-    single<IRxSchedulers> {
-        RxSchedulers
-    }
     single<IApiService> {
-        ApiService(get(), get(), get(), get())
+        ApiService(get(), get(), get())
     }
     single<IApiMapper> {
         ApiMapper()

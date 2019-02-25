@@ -7,21 +7,17 @@ import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
 import com.vivanov.currenciesconverter.domain.interactors.core.BaseInteractor
 import com.vivanov.currenciesconverter.domain.model.Currency
 import com.vivanov.currenciesconverter.domain.model.CurrencyRate
-import com.vivanov.currenciesconverter.extensions.IRxSchedulers
-import com.vivanov.currenciesconverter.extensions.mainThread
 import com.vivanov.currenciesconverter.presentation.main.CurrencyRatesAction
 import io.reactivex.BackpressureStrategy
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
-import java.util.concurrent.TimeUnit
 
 private const val SELECTED_ITEM_POSITION: Int = 0
 private const val UPDATE_PERIOD: Long = 1L
 
 class CurrencyRatesInteractor(
-    private val currencyRatesRepository: ICurrencyRatesRepository,
-    private val rxSchedulers: IRxSchedulers
+    private val currencyRatesRepository: ICurrencyRatesRepository
 ) : BaseInteractor<CurrencyRatesAction>(), ICurrencyRatesContract.ICurrencyRatesInteractor {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -37,9 +33,11 @@ class CurrencyRatesInteractor(
 
     override fun loadItems() {
         compositeDisposable.add(
-            Observable.interval(UPDATE_PERIOD, TimeUnit.SECONDS)
-                .flatMap {
+            //Observable.interval(UPDATE_PERIOD, TimeUnit.SECONDS)
+            //    .observeOn(Schedulers.io())
+            //    .concatMap {
                     currencyRatesRepository.getCurrencyRates(currentCurrencyRate.code)
+                        .observeOn(Schedulers.io())
                         .toObservable()
                         .map { newCurrencyRates ->
                             if (newCurrencyRates.isEmpty()) {
@@ -49,13 +47,13 @@ class CurrencyRatesInteractor(
                                 CurrencyRatesAction.LoadedListAction(currencyRates)
                             }
                         }
-                }
+                        //    }
                 .toFlowable(BackpressureStrategy.LATEST)
                 .startWith(CurrencyRatesAction.LoadingAction)
                 .onErrorReturn {
                     CurrencyRatesAction.ErrorAction(it)
                 }
-                .mainThread(rxSchedulers)
+                        .subscribeOn(Schedulers.io())
                 .subscribe {
                     actionsSubject.onNext(it)
                 }

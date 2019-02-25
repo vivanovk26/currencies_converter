@@ -7,7 +7,6 @@ import com.vivanov.currenciesconverter.data.network.model.responses.CurrenciesRe
 import com.vivanov.currenciesconverter.data.network.services.ApiService
 import com.vivanov.currenciesconverter.domain.model.Currency
 import com.vivanov.currenciesconverter.domain.model.CurrencyRate
-import com.vivanov.currenciesconverter.extensions.RxSchedulersTest
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.spekframework.spek2.Spek
@@ -50,11 +49,11 @@ class ApiServiceTestCases : Spek({
             }
         }
         val apiServiceStableApi = ApiService(
-            validCurrenciesConverterApi, apiMapper, errorMapper, RxSchedulersTest
+            validCurrenciesConverterApi, apiMapper, errorMapper
         )
 
         val apiServiceErrorApi = ApiService(
-            invalidCurrenciesConverterApi, apiMapper, errorMapper, RxSchedulersTest
+            invalidCurrenciesConverterApi, apiMapper, errorMapper
         )
 
         describe("getCurrencyRates validation") {

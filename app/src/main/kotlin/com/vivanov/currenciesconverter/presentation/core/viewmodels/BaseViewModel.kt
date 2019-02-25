@@ -6,6 +6,7 @@ import android.support.annotation.CallSuper
 import com.vivanov.currenciesconverter.presentation.core.actions.IAction
 import com.vivanov.currenciesconverter.presentation.core.events.IEvent
 import com.vivanov.currenciesconverter.presentation.core.states.IState
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import org.koin.core.scope.Scope
@@ -20,9 +21,10 @@ abstract class BaseViewModel<State : IState, Event : IEvent, Action : IAction> :
         set(value) {
             field = value
             compositeDisposable.add(
-                value.subscribe {
-                    reduceAction(it)
-                }
+                value.observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        reduceAction(it)
+                    }
             )
         }
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -30,9 +32,10 @@ abstract class BaseViewModel<State : IState, Event : IEvent, Action : IAction> :
 
     init {
         compositeDisposable.add(
-            eventsSubject.subscribe {
-                reduceEvent(it)
-            }
+            eventsSubject.observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    reduceEvent(it)
+                }
         )
     }
 

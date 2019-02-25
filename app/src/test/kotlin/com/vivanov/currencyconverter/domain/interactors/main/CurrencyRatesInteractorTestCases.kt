@@ -4,7 +4,6 @@ import com.vivanov.currenciesconverter.data.repositories.ICurrencyRatesRepositor
 import com.vivanov.currenciesconverter.domain.interactors.main.CurrencyRatesInteractor
 import com.vivanov.currenciesconverter.domain.model.Currency
 import com.vivanov.currenciesconverter.domain.model.CurrencyRate
-import com.vivanov.currenciesconverter.extensions.RxSchedulersTest
 import com.vivanov.currenciesconverter.presentation.main.CurrencyRatesAction
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
@@ -30,9 +29,7 @@ class CurrencyRatesInteractorTestCases : Spek({
                 }
             }
 
-            val currencyRatesInteractor = CurrencyRatesInteractor(
-                currencyRatesRepository, RxSchedulersTest
-            )
+            val currencyRatesInteractor = CurrencyRatesInteractor(currencyRatesRepository)
 
             it("check first action is LoadingAction") {
 
