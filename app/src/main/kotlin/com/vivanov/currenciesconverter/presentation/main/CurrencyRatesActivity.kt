@@ -13,7 +13,6 @@ import com.vivanov.currenciesconverter.extensions.gone
 import com.vivanov.currenciesconverter.extensions.visible
 import com.vivanov.currenciesconverter.presentation.core.views.BaseActivity
 import com.vivanov.currenciesconverter.presentation.main.list.CurrencyRatesAdapter
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
@@ -25,7 +24,6 @@ class CurrencyRatesActivity :
 
     override val layoutId: Int = R.layout.activity_main
 
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val currencyRatesAdapter: CurrencyRatesAdapter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,11 +108,5 @@ class CurrencyRatesActivity :
 
     override fun hideLoading() {
         swrl.isRefreshing = false
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        compositeDisposable.clear()
     }
 }

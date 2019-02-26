@@ -24,6 +24,10 @@ class ApiMapper : IApiMapper {
         }
     }
 
+    /**
+     * Validation for incorrect server model.
+     * We ignore all unexpected currencies.
+     */
     private fun valid(currency: String): Boolean {
         return currency in Currency.values().map { it.name }
     }

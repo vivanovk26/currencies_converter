@@ -4,8 +4,8 @@ import com.vivanov.currenciesconverter.data.repositories.CurrencyRatesRepository
 import com.vivanov.currenciesconverter.data.repositories.ICurrencyRatesRepository
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
 import com.vivanov.currenciesconverter.domain.interactors.main.CurrencyRatesInteractor
-import com.vivanov.currenciesconverter.presentation.main.CurrencyRatesAdapter
 import com.vivanov.currenciesconverter.presentation.main.CurrencyRatesViewModel
+import com.vivanov.currenciesconverter.presentation.main.list.CurrencyRatesAdapter
 import org.koin.android.viewmodel.experimental.builder.viewModel
 import org.koin.dsl.module.Module
 import org.koin.dsl.module.module

@@ -62,6 +62,9 @@ class CurrencyRatesInteractor(
         )
     }
 
+    /**
+     * Merge old and new rates.
+     */
     private fun mergeList(newCurrencyRates: List<CurrencyRate>) {
         newCurrencyRates.map {
             it.amount = it.rate.multiply(currentCurrencyRate.amount)
@@ -70,9 +73,11 @@ class CurrencyRatesInteractor(
             val mergedCurrencyRate = currencyRates.find {
                 it.code == newCurrencyRate.code
             }
+            // Add all rates for the first load.
             if (mergedCurrencyRate == null) {
                 currencyRates.add(newCurrencyRate)
             } else {
+                // Merge old and new rates.
                 mergedCurrencyRate.rate = newCurrencyRate.rate
                 mergedCurrencyRate.amount = newCurrencyRate.amount
             }
@@ -98,11 +103,25 @@ class CurrencyRatesInteractor(
         }
     }
 
+    /**
+     * Update items rates. Ignore selected.
+     */
+    private fun updateCurrencyRateAmounts(position: Int, amount: BigDecimal) {
+        currencyRates.filterIndexed { index, _ ->
+            index != position
+        }.map {
+            it.amount = it.rate.multiply(amount)
+        }
+        actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(currencyRates))
+    }
+
+    /**
+     * Just replace selected and first elements. Focus change already reload current currency.
+     */
     override fun onItemClicked(position: Int) {
-        if (currencyRates[position].code != currentCurrencyRate.code) {
-            reloadCurrencyRates(position)
-            replaceCurrencyRates(position)
-        } else if (position != SELECTED_ITEM_POSITION) {
+        if (currencyRates[position].code != currentCurrencyRate.code
+            || position != SELECTED_ITEM_POSITION
+        ) {
             replaceCurrencyRates(position)
         }
     }
@@ -110,15 +129,6 @@ class CurrencyRatesInteractor(
     private fun replaceCurrencyRates(position: Int) {
         currencyRates.removeAt(position)
         currencyRates.add(SELECTED_ITEM_POSITION, currentCurrencyRate)
-        actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(currencyRates))
-    }
-
-    private fun updateCurrencyRateAmounts(position: Int, amount: BigDecimal) {
-        currencyRates.filterIndexed { index, _ ->
-            index != position
-        }.map {
-            it.amount = it.rate.multiply(amount)
-        }
         actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(currencyRates))
     }
 

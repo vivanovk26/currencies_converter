@@ -1,6 +1,7 @@
-package com.vivanov.currenciesconverter.presentation.main
+package com.vivanov.currenciesconverter.presentation.main.list
 
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseDiffCallback
+import com.vivanov.currenciesconverter.presentation.main.CurrencyRateVM
 
 class CurrencyRatesDiffCallback(
     private val oldList: List<CurrencyRateVM>,

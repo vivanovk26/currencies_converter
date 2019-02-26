@@ -1,4 +1,4 @@
-package com.vivanov.currenciesconverter.presentation.main
+package com.vivanov.currenciesconverter.presentation.main.list
 
 sealed class CurrencyRatesPayload {
 
