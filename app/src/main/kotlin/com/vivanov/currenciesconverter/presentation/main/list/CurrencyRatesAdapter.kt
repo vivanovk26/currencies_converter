@@ -1,11 +1,10 @@
-package com.vivanov.currenciesconverter.presentation.main
+package com.vivanov.currenciesconverter.presentation.main.list
 
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import com.jakewharton.rxbinding2.view.clicks
 import com.vivanov.currenciesconverter.R
 import com.vivanov.currenciesconverter.data.network.services.IImageLoaderService
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
@@ -14,6 +13,7 @@ import com.vivanov.currenciesconverter.extensions.hideKeyboard
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseAdapter
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseDiffCallback
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseViewHolder
+import com.vivanov.currenciesconverter.presentation.main.CurrencyRateVM
 import kotlinx.android.synthetic.main.item_currency_rate.view.*
 
 class CurrencyRatesAdapter(
@@ -34,7 +34,10 @@ class CurrencyRatesAdapter(
         oldList: List<CurrencyRateVM>,
         newList: List<CurrencyRateVM>
     ): BaseDiffCallback<CurrencyRateVM> {
-        return CurrencyRatesDiffCallback(oldList, newList)
+        return CurrencyRatesDiffCallback(
+            oldList,
+            newList
+        )
     }
 
     inner class ViewHolder(itemView: View) : BaseViewHolder<CurrencyRateVM>(itemView) {
@@ -73,20 +76,21 @@ class CurrencyRatesAdapter(
 
             setupEditText(item, false)
 
-            itemView.clicks()
-                .subscribe {
-                    if (adapterPosition != RecyclerView.NO_POSITION) {
-                        itemView.et_amount.requestFocus()
-                        currencyRatesView.onItemClicked(adapterPosition)
-                        selectedPosition = SELECTED_ITEM_POSITION
-                    }
+            itemView.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    // Let focus to handle current currency reload.
+                    itemView.et_amount.requestFocus()
+                    currencyRatesView.onItemClicked(adapterPosition)
+                    selectedPosition = SELECTED_ITEM_POSITION
                 }
+            }
         }
 
         private fun setupEditText(item: CurrencyRateVM, payloadCall: Boolean) {
             itemView.et_amount.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     itemView.et_amount.addTextChangedListener(textWatcher)
+                    // Support enter amount for every row.
                     if (selectedPosition != adapterPosition) {
                         selectedPosition = adapterPosition
                         currencyRatesView.onItemFocused(adapterPosition)
@@ -104,8 +108,10 @@ class CurrencyRatesAdapter(
                 }
             }
             if (selectedPosition == adapterPosition) {
+                // Remove infinite refreshing.
                 itemView.et_amount.removeTextChangedListener(textWatcher)
                 selectedSelectionPosition = itemView.et_amount.selectionStart
+                // When we enter amount we don't want to set text from CurrencyRateVM object.
                 if (!payloadCall) {
                     itemView.et_amount.setText(item.amount)
                 }

@@ -35,9 +35,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
-    // RxBindings
-    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxBindingVersion"
-
     // Retrofit 2
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
