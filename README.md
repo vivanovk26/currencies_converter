@@ -1,15 +1,15 @@
- Currencies converter.
+ Currencies converter
 ====
 
- Project demonstrates a currency board. Each row has an EditText to calculate rate in other
-currencies. Data updates every 1 second. Please notice that every time you change row (by item
-click or changing text) application needs to refresh currency rate.
+ This app is a currency converter. Each currency row has an input to enter amount of money. When you’re changing the amount the app simultaneously
+updates the corresponding value for other currencies. Data updates every second. Please notice that every time you change a row (item
+click or changing a text) application refreshes selected currency rate.
  
- Under the hood it's glance implementation of MVI pattern. View send Events to a presenter
-(ViewModel) and subscribes to State fields (LiveData). This fields are changed by Actions sent from
+ Under the hood it uses a glance implementation of MVI pattern. A View sends Events to a Presenter
+(ViewModel) and subscribes to a State fields (LiveData). This fields are changed by Actions sent from
 business logic (Interactors).
  
- Project uses [Spek][spek] for unit testing. You need to setup Spek Framework plugin if you want to
+ The project uses [Spek][spek] for unit testing. You need to setup Spek Framework plugin if you want to
 run tests in IntelliJ or Android Studio. More information is here [spek].
 
  _configs folder contains inspections and code style files.
