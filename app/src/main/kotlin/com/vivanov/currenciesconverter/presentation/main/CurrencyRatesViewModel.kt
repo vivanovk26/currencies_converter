@@ -8,6 +8,7 @@ import com.vivanov.currenciesconverter.domain.format.number.INumberFormatter
 import com.vivanov.currenciesconverter.domain.model.CurrencyRate
 import com.vivanov.currenciesconverter.presentation.core.viewmodels.BaseViewModel
 import org.koin.core.scope.Scope
+import java.math.BigDecimal
 
 class CurrencyRatesViewModel(
     private val resourcesProvider: IResourcesProvider,
@@ -30,16 +31,20 @@ class CurrencyRatesViewModel(
     override fun onEventChanged(event: CurrencyRatesEvent) {
         when (event) {
 
-            is CurrencyRatesEvent.ItemClickedEvent -> {
-                currencyRatesInteractor.onItemClicked(event.position)
+            is CurrencyRatesEvent.RefreshEvent -> {
+                currencyRatesInteractor.loadItems()
+            }
+
+            is CurrencyRatesEvent.FocusChangedEvent -> {
+                currencyRatesInteractor.onFocusChanged(event.position)
             }
 
             is CurrencyRatesEvent.AmountChangedEvent -> {
-                currencyRatesInteractor.amountChanged(event.position, event.amount)
+                currencyRatesInteractor.onAmountChanged(event.position, BigDecimal(event.amount))
             }
 
-            is CurrencyRatesEvent.OnRefreshEvent -> {
-                currencyRatesInteractor.loadItems()
+            is CurrencyRatesEvent.ItemClickedEvent -> {
+                currencyRatesInteractor.onItemClicked(event.position)
             }
         }
     }

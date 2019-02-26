@@ -9,9 +9,11 @@ import com.vivanov.currenciesconverter.domain.model.Currency
 import com.vivanov.currenciesconverter.domain.model.CurrencyRate
 import com.vivanov.currenciesconverter.presentation.main.CurrencyRatesAction
 import io.reactivex.BackpressureStrategy
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
+import java.util.concurrent.TimeUnit
 
 private const val SELECTED_ITEM_POSITION: Int = 0
 private const val UPDATE_PERIOD: Long = 1L
@@ -33,9 +35,9 @@ class CurrencyRatesInteractor(
 
     override fun loadItems() {
         compositeDisposable.add(
-            //Observable.interval(UPDATE_PERIOD, TimeUnit.SECONDS)
-            //    .observeOn(Schedulers.io())
-            //    .concatMap {
+            Observable.interval(UPDATE_PERIOD, TimeUnit.SECONDS)
+                .observeOn(Schedulers.io())
+                .concatMap {
                     currencyRatesRepository.getCurrencyRates(currentCurrencyRate.code)
                         .observeOn(Schedulers.io())
                         .toObservable()
@@ -47,13 +49,13 @@ class CurrencyRatesInteractor(
                                 CurrencyRatesAction.LoadedListAction(currencyRates)
                             }
                         }
-                        //    }
+                }
                 .toFlowable(BackpressureStrategy.LATEST)
                 .startWith(CurrencyRatesAction.LoadingAction)
                 .onErrorReturn {
                     CurrencyRatesAction.ErrorAction(it)
                 }
-                        .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
                 .subscribe {
                     actionsSubject.onNext(it)
                 }
@@ -77,6 +79,25 @@ class CurrencyRatesInteractor(
         }
     }
 
+    override fun onFocusChanged(position: Int) {
+        reloadCurrencyRates(position)
+    }
+
+    private fun reloadCurrencyRates(position: Int) {
+        compositeDisposable.clear()
+        currentCurrencyRate = currencyRates[position]
+        loadItems()
+    }
+
+    override fun onAmountChanged(position: Int, amount: BigDecimal) {
+        currencyRates[position].amount = amount
+        if (currencyRates[position].code == currentCurrencyRate.code) {
+            updateCurrencyRateAmounts(position, amount)
+        } else {
+            reloadCurrencyRates(position)
+        }
+    }
+
     override fun onItemClicked(position: Int) {
         if (currencyRates[position].code != currentCurrencyRate.code) {
             reloadCurrencyRates(position)
@@ -86,25 +107,10 @@ class CurrencyRatesInteractor(
         }
     }
 
-    private fun reloadCurrencyRates(position: Int) {
-        compositeDisposable.clear()
-        currentCurrencyRate = currencyRates[position]
-        loadItems()
-    }
-
     private fun replaceCurrencyRates(position: Int) {
         currencyRates.removeAt(position)
         currencyRates.add(SELECTED_ITEM_POSITION, currentCurrencyRate)
         actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(currencyRates))
-    }
-
-    override fun amountChanged(position: Int, amount: BigDecimal) {
-        currencyRates[position].amount = amount
-        if (currencyRates[position].code == currentCurrencyRate.code) {
-            updateCurrencyRateAmounts(position, amount)
-        } else {
-            reloadCurrencyRates(position)
-        }
     }
 
     private fun updateCurrencyRateAmounts(position: Int, amount: BigDecimal) {

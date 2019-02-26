@@ -1,6 +1,8 @@
 package com.vivanov.currenciesconverter.presentation.main
 
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.jakewharton.rxbinding2.view.clicks
@@ -21,6 +23,9 @@ class CurrencyRatesAdapter(
 
     lateinit var currencyRatesView: ICurrencyRatesContract.ICurrencyRatesView
 
+    private var selectedPosition: Int? = null
+    private var selectedSelectionPosition: Int = 0
+
     override fun createViewHolder(itemView: View): ViewHolder {
         return ViewHolder(itemView)
     }
@@ -34,17 +39,59 @@ class CurrencyRatesAdapter(
 
     inner class ViewHolder(itemView: View) : BaseViewHolder<CurrencyRateVM>(itemView) {
 
+        private val textWatcher = object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Empty.
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Empty.
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                s?.let {
+                    val text = it.toString()
+                    val result = if (text.isEmpty()) {
+                        "0"
+                    } else {
+                        text
+                    }
+                    if (selectedPosition == adapterPosition) {
+                        currencyRatesView.onAmountChanged(adapterPosition, result)
+                    }
+                }
+            }
+        }
+
         override fun bind(item: CurrencyRateVM) {
             imageLoaderService.loadFlagIcon(itemView.sdrv, item.iconCode)
             itemView.tv_code.text = item.code
             itemView.tv_description.text = item.description
             itemView.tv_currency_symbol.text = item.currencySymbol
-            if (!itemView.et_amount.hasFocus()) {
-                itemView.et_amount.setText(item.amount)
-            }
+
+            setupEditText(item, false)
+
+            itemView.clicks()
+                .subscribe {
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        currencyRatesView.onItemClicked(adapterPosition)
+                        selectedPosition = 0
+                        itemView.et_amount.requestFocus()
+                    }
+                }
+        }
+
+        private fun setupEditText(item: CurrencyRateVM, payloadCall: Boolean) {
             itemView.et_amount.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
-                    currencyRatesView.onItemFocused(adapterPosition, itemView.et_amount)
+                    itemView.et_amount.addTextChangedListener(textWatcher)
+                    if (selectedPosition != adapterPosition) {
+                        selectedPosition = adapterPosition
+                        currencyRatesView.onItemFocused(adapterPosition)
+                    }
+                } else {
+                    itemView.et_amount.removeTextChangedListener(textWatcher)
                 }
             }
             itemView.et_amount.setOnEditorActionListener { _, actionId, _ ->
@@ -55,22 +102,24 @@ class CurrencyRatesAdapter(
                     return@setOnEditorActionListener false
                 }
             }
-
-            itemView.clicks()
-                .subscribe {
-                    if (adapterPosition != RecyclerView.NO_POSITION) {
-                        currencyRatesView.onItemClicked(adapterPosition)
-                        itemView.et_amount.requestFocus()
-                    }
+            if (selectedPosition == adapterPosition) {
+                itemView.et_amount.removeTextChangedListener(textWatcher)
+                selectedSelectionPosition = itemView.et_amount.selectionStart
+                if (!payloadCall) {
+                    itemView.et_amount.setText(item.amount)
                 }
+                itemView.et_amount.setSelection(selectedSelectionPosition)
+                itemView.et_amount.requestFocus()
+                itemView.et_amount.addTextChangedListener(textWatcher)
+            } else {
+                itemView.et_amount.setText(item.amount)
+            }
         }
 
         override fun bindPayloads(item: CurrencyRateVM, payload: Any) {
             when (payload) {
                 is CurrencyRatesPayload.Amount -> {
-                    if (!itemView.et_amount.hasFocus()) {
-                        itemView.et_amount.setText(item.amount)
-                    }
+                    setupEditText(item, true)
                 }
                 else -> {
                     bind(item)

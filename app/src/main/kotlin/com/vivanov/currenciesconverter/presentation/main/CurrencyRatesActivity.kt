@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.EditText
-import com.jakewharton.rxbinding2.widget.textChanges
 import com.vivanov.currenciesconverter.R
 import com.vivanov.currenciesconverter.config.di.CURRENCY_RATES_SCOPE
 import com.vivanov.currenciesconverter.data.error.renderers.showError
@@ -19,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.getViewModel
-import java.math.BigDecimal
 
 class CurrencyRatesActivity :
     BaseActivity<ICurrencyRatesContract.ICurrencyRatesViewModel, CurrencyRatesState>(),
@@ -49,7 +46,7 @@ class CurrencyRatesActivity :
 
     private fun setupRecyclerView() {
         swrl.setOnRefreshListener {
-            viewModel.eventsSubject.onNext(CurrencyRatesEvent.OnRefreshEvent)
+            viewModel.eventsSubject.onNext(CurrencyRatesEvent.RefreshEvent)
         }
         rv.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this)
@@ -63,29 +60,20 @@ class CurrencyRatesActivity :
         currencyRatesAdapter.currencyRatesView = this@CurrencyRatesActivity
     }
 
-    override fun onItemClicked(position: Int) {
-        viewModel.eventsSubject.onNext(CurrencyRatesEvent.ItemClickedEvent(position))
+    override fun onItemFocused(position: Int) {
+        viewModel.eventsSubject.onNext(
+            CurrencyRatesEvent.FocusChangedEvent(position)
+        )
     }
 
-    override fun onItemFocused(position: Int, editText: EditText) {
-        compositeDisposable.clear()
-        compositeDisposable.add(
-            editText.textChanges()
-                .skipInitialValue()
-                .map {
-                    if (it.toString().isEmpty()) {
-                        editText.setText("0")
-                        "0"
-                    } else {
-                        it.toString()
-                    }
-                }
-                .subscribe {
-                    viewModel.eventsSubject.onNext(
-                        CurrencyRatesEvent.AmountChangedEvent(position, BigDecimal(it))
-                    )
-                }
+    override fun onAmountChanged(position: Int, amountText: String) {
+        viewModel.eventsSubject.onNext(
+            CurrencyRatesEvent.AmountChangedEvent(position, amountText)
         )
+    }
+
+    override fun onItemClicked(position: Int) {
+        viewModel.eventsSubject.onNext(CurrencyRatesEvent.ItemClickedEvent(position))
     }
 
     override fun subscribeOnStateChanges(state: CurrencyRatesState) {
