@@ -12,6 +12,7 @@ import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
 import com.vivanov.currenciesconverter.extensions.gone
 import com.vivanov.currenciesconverter.extensions.visible
 import com.vivanov.currenciesconverter.presentation.core.views.BaseActivity
+import com.vivanov.currenciesconverter.presentation.main.list.CurrencyRatesAdapter
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.getKoin
@@ -90,7 +91,7 @@ class CurrencyRatesActivity :
         registerNonNullObserver(state.emptyViewVisible) {
             if (it) {
                 rv.gone()
-                tv_empty_view.gone()
+                tv_empty_view.visible()
             } else {
                 rv.visible()
                 tv_empty_view.gone()
