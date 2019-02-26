@@ -9,6 +9,7 @@ import com.jakewharton.rxbinding2.view.clicks
 import com.vivanov.currenciesconverter.R
 import com.vivanov.currenciesconverter.data.network.services.IImageLoaderService
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
+import com.vivanov.currenciesconverter.domain.interactors.main.SELECTED_ITEM_POSITION
 import com.vivanov.currenciesconverter.extensions.hideKeyboard
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseAdapter
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseDiffCallback
@@ -24,7 +25,6 @@ class CurrencyRatesAdapter(
     lateinit var currencyRatesView: ICurrencyRatesContract.ICurrencyRatesView
 
     private var selectedPosition: Int? = null
-    private var selectedSelectionPosition: Int = 0
 
     override fun createViewHolder(itemView: View): ViewHolder {
         return ViewHolder(itemView)
@@ -63,6 +63,7 @@ class CurrencyRatesAdapter(
                 }
             }
         }
+        private var selectedSelectionPosition: Int = 0
 
         override fun bind(item: CurrencyRateVM) {
             imageLoaderService.loadFlagIcon(itemView.sdrv, item.iconCode)
@@ -75,9 +76,9 @@ class CurrencyRatesAdapter(
             itemView.clicks()
                 .subscribe {
                     if (adapterPosition != RecyclerView.NO_POSITION) {
-                        currencyRatesView.onItemClicked(adapterPosition)
-                        selectedPosition = 0
                         itemView.et_amount.requestFocus()
+                        currencyRatesView.onItemClicked(adapterPosition)
+                        selectedPosition = SELECTED_ITEM_POSITION
                     }
                 }
         }
