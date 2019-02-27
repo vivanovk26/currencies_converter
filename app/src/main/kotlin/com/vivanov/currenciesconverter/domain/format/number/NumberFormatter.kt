@@ -18,6 +18,8 @@ class NumberFormatter(
 
     init {
         numberFormat.isGroupingUsed = false
+        numberFormat.minimumFractionDigits =
+            resourcesProvider.getInteger(R.integer.max_fraction_digits)
         numberFormat.maximumFractionDigits =
             resourcesProvider.getInteger(R.integer.max_fraction_digits)
     }
