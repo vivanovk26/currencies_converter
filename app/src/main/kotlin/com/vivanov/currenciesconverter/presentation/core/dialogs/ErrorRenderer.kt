@@ -1,12 +1,10 @@
-package com.vivanov.currenciesconverter.data.error.renderers
+package com.vivanov.currenciesconverter.presentation.core.dialogs
 
 import android.support.v7.app.AppCompatActivity
 import com.vivanov.currenciesconverter.R
 import com.vivanov.currenciesconverter.data.error.exceptions.ApiException
 import com.vivanov.currenciesconverter.data.error.exceptions.ConnectionException
 import com.vivanov.currenciesconverter.data.error.exceptions.ParseException
-import com.vivanov.currenciesconverter.presentation.core.dialogs.ConnectionErrorDialogFragment
-import com.vivanov.currenciesconverter.presentation.core.dialogs.InfoDialogFragment
 
 private const val ERROR_DIALOG_TAG: String = "ERROR_DIALOG_TAG"
 

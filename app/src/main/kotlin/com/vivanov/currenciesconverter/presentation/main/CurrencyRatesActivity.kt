@@ -7,10 +7,10 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import com.vivanov.currenciesconverter.R
 import com.vivanov.currenciesconverter.config.di.CURRENCY_RATES_SCOPE
-import com.vivanov.currenciesconverter.data.error.renderers.showError
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
 import com.vivanov.currenciesconverter.extensions.gone
 import com.vivanov.currenciesconverter.extensions.visible
+import com.vivanov.currenciesconverter.presentation.core.dialogs.showError
 import com.vivanov.currenciesconverter.presentation.core.views.BaseActivity
 import com.vivanov.currenciesconverter.presentation.main.list.CurrencyRatesAdapter
 import kotlinx.android.synthetic.main.activity_main.*

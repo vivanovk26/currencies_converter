@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
-const val SELECTED_ITEM_POSITION: Int = 0
+const val CLICKED_ITEM_POSITION: Int = 0
 private const val UPDATE_PERIOD: Long = 1L
 
 class CurrencyRatesInteractor(
@@ -120,7 +120,7 @@ class CurrencyRatesInteractor(
      */
     override fun onItemClicked(position: Int) {
         if (currencyRates[position].code != currentCurrencyRate.code
-            || position != SELECTED_ITEM_POSITION
+            || position != CLICKED_ITEM_POSITION
         ) {
             replaceCurrencyRates(position)
         }
@@ -128,7 +128,7 @@ class CurrencyRatesInteractor(
 
     private fun replaceCurrencyRates(position: Int) {
         currencyRates.removeAt(position)
-        currencyRates.add(SELECTED_ITEM_POSITION, currentCurrencyRate)
+        currencyRates.add(CLICKED_ITEM_POSITION, currentCurrencyRate)
         actionsSubject.onNext(CurrencyRatesAction.UpdateListAction(currencyRates))
     }
 
