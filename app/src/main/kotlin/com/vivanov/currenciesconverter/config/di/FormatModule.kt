@@ -10,10 +10,11 @@ import java.util.*
 @SuppressLint("ConstantLocale")
 val formatModule: Module = module {
 
+    // Restrict this version by one locale
     factory<Locale> {
-        Locale.getDefault()
+        Locale.UK
     }
     single<INumberFormatter> {
-        NumberFormatter()
+        NumberFormatter(get(), get())
     }
 }

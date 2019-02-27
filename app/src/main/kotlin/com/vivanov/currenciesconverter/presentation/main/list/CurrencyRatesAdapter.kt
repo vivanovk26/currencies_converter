@@ -8,7 +8,8 @@ import android.view.inputmethod.EditorInfo
 import com.vivanov.currenciesconverter.R
 import com.vivanov.currenciesconverter.data.network.services.IImageLoaderService
 import com.vivanov.currenciesconverter.domain.contracts.ICurrencyRatesContract
-import com.vivanov.currenciesconverter.domain.interactors.main.SELECTED_ITEM_POSITION
+import com.vivanov.currenciesconverter.domain.format.number.INumberFormatter
+import com.vivanov.currenciesconverter.domain.interactors.main.CLICKED_ITEM_POSITION
 import com.vivanov.currenciesconverter.extensions.hideKeyboard
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseAdapter
 import com.vivanov.currenciesconverter.presentation.core.adapters.BaseDiffCallback
@@ -17,7 +18,8 @@ import com.vivanov.currenciesconverter.presentation.main.CurrencyRateVM
 import kotlinx.android.synthetic.main.item_currency_rate.view.*
 
 class CurrencyRatesAdapter(
-    private val imageLoaderService: IImageLoaderService
+    private val imageLoaderService: IImageLoaderService,
+    private val numberFormatter: INumberFormatter
 ) : BaseAdapter<CurrencyRateVM, CurrencyRatesAdapter.ViewHolder>() {
 
     override val layoutId: Int = R.layout.item_currency_rate
@@ -54,14 +56,11 @@ class CurrencyRatesAdapter(
 
             override fun afterTextChanged(s: Editable?) {
                 s?.let {
-                    val text = it.toString()
-                    val result = if (text.isEmpty()) {
-                        "0"
-                    } else {
-                        text
-                    }
                     if (selectedPosition == adapterPosition) {
-                        currencyRatesView.onAmountChanged(adapterPosition, result)
+                        currencyRatesView.onAmountChanged(
+                            adapterPosition,
+                            numberFormatter.formatEnteredAmountText(it.toString())
+                        )
                     }
                 }
             }
@@ -81,7 +80,7 @@ class CurrencyRatesAdapter(
                     // Let focus to handle current currency reload.
                     itemView.et_amount.requestFocus()
                     currencyRatesView.onItemClicked(adapterPosition)
-                    selectedPosition = SELECTED_ITEM_POSITION
+                    selectedPosition = CLICKED_ITEM_POSITION
                 }
             }
         }

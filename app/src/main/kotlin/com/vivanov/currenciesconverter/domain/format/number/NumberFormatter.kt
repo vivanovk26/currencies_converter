@@ -1,21 +1,48 @@
 package com.vivanov.currenciesconverter.domain.format.number
 
+import com.vivanov.currenciesconverter.R
+import com.vivanov.currenciesconverter.data.providers.IResourcesProvider
 import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.*
 
-class NumberFormatter : INumberFormatter {
+private const val SEPARATOR: String = "."
+private const val ZERO_TEXT: String = "0"
 
-    private val numberFormat: NumberFormat = NumberFormat.getCurrencyInstance(Locale.getDefault())
+class NumberFormatter(
+    resourcesProvider: IResourcesProvider,
+    locale: Locale
+) : INumberFormatter {
+
+    private val numberFormat: NumberFormat = NumberFormat.getInstance(locale)
+
+    init {
+        numberFormat.isGroupingUsed = false
+        numberFormat.maximumFractionDigits =
+            resourcesProvider.getInteger(R.integer.max_fraction_digits)
+    }
 
     override fun formatAmount(code: String, amount: BigDecimal): String {
-        numberFormat.currency = Currency.getInstance(code)
-        numberFormat.isGroupingUsed = false
-        return numberFormat.format(amount.toDouble()).replace(numberFormat.currency.symbol, "")
+        return numberFormat.format(amount.toDouble())
+            .replace(numberFormat.currency.symbol, "")
+            .removeUnsupportedSymbols()
+    }
+
+    private fun String.removeUnsupportedSymbols(): String {
+        val text = this.replace(",", ".")
+            .replace(" ", "")
+        return if (text.isEmpty() || text == SEPARATOR) {
+            ZERO_TEXT
+        } else {
+            text
+        }
+    }
+
+    override fun formatEnteredAmountText(amountText: String): String {
+        return amountText.removeUnsupportedSymbols()
     }
 
     override fun formatCurrency(code: String): String {
-        numberFormat.currency = Currency.getInstance(code)
-        return numberFormat.currency.symbol
+        return Currency.getInstance(code).symbol
     }
 }

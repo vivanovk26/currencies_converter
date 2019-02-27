@@ -14,4 +14,8 @@ class ResourcesProvider(
     override fun getString(@StringRes resId: Int, vararg args: Any): String {
         return context.getString(resId, *args)
     }
+
+    override fun getInteger(resId: Int): Int {
+        return context.resources.getInteger(resId)
+    }
 }

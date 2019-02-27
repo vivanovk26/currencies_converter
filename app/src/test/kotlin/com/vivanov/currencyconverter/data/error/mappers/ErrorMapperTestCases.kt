@@ -27,6 +27,10 @@ class ErrorMapperTestCases : Spek({
             override fun getString(resId: Int, vararg args: Any): String {
                 return ""
             }
+
+            override fun getInteger(resId: Int): Int {
+                return 0
+            }
         }
         val errorMapper = ErrorMapper(resourcesProvider)
 

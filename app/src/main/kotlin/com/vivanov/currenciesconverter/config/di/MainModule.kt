@@ -15,7 +15,7 @@ const val CURRENCY_RATES_SCOPE: String = "CURRENCY_RATES_SCOPE"
 val currencyRatesModule: Module = module {
 
     scope(CURRENCY_RATES_SCOPE) {
-        CurrencyRatesAdapter(get())
+        CurrencyRatesAdapter(get(), get())
     }
     viewModel<CurrencyRatesViewModel>()
     scope<ICurrencyRatesContract.ICurrencyRatesViewModel>(CURRENCY_RATES_SCOPE) {
