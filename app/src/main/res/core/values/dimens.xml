@@ -1,0 +1,33 @@
+<resources>
+
+
+    <!--
+    Base colors. Reuse them.
+    This is important to understand how different sizes do we use.
+    -->
+
+    <!-- Sizes -->
+    <dimen name="dp16">16dp</dimen>
+    <dimen name="dp64">64dp</dimen>
+    <dimen name="dp96">96dp</dimen>
+    <dimen name="dp128">128dp</dimen>
+
+    <!-- Texts -->
+    <dimen name="sp14">14sp</dimen>
+    <dimen name="sp16">16sp</dimen>
+    <dimen name="sp20">20sp</dimen>
+
+    <!-- Views sizes -->
+    <dimen name="item_currency_rate_amount_width">@dimen/dp96</dimen>
+    <dimen name="item_currency_rate_height">@dimen/dp128</dimen>
+    <dimen name="item_currency_rate_spacing">@dimen/dp16</dimen>
+    <dimen name="icon_size">@dimen/dp64</dimen>
+    <dimen name="toolbar_spacing">@dimen/dp16</dimen>
+
+    <!-- Texts sizes -->
+    <dimen name="currency_rate_amount_text">@dimen/sp20</dimen>
+    <dimen name="currency_rate_code_text">@dimen/sp16</dimen>
+    <dimen name="currency_rate_description_text">@dimen/sp14</dimen>
+    <dimen name="empty_view_text">@dimen/sp16</dimen>
+    <dimen name="toolbar_title_text">@dimen/sp20</dimen>
+</resources>

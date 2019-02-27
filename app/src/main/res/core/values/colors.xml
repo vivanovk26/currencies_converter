@@ -1,0 +1,28 @@
+<resources>
+
+    <!--
+    Base colors. Reuse them.
+    This is important to understand how many different colors do we use.
+    -->
+    <color name="charcoal_gray">#47484a</color>
+    <color name="cool_gray">#bababb</color>
+    <color name="gray">#a9a9ab</color>
+    <color name="green">#bed600</color>
+    <color name="gunmental">#535457</color>
+    <color name="white">#ffffff</color>
+
+    <color name="colorPrimaryDark">@color/gunmental</color>
+    <color name="colorAccent">@color/green</color>
+
+    <color name="background">@color/charcoal_gray</color>
+    <color name="country_failure_background">@color/gray</color>
+    <color name="currency_rate_amount_text">@color/white</color>
+    <color name="currency_rate_code_text">@color/gray</color>
+    <color name="currency_rate_description_text">@color/white</color>
+    <color name="divider">@color/cool_gray</color>
+    <color name="empty_view_text">@color/white</color>
+    <color name="ic_launcher_background">@color/white</color>
+    <color name="launch_screen_background">@color/gunmental</color>
+    <color name="toolbar_background">@color/gunmental</color>
+    <color name="toolbar_title_text">@color/white</color>
+</resources>

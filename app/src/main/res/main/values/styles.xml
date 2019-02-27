@@ -1,0 +1,28 @@
+<resources>
+
+    <style name="CurrencyRate">
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="CurrencyRate.Amount">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:inputType">number</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:textSize">@dimen/currency_rate_amount_text</item>
+        <item name="android:textColor">@color/currency_rate_amount_text</item>
+    </style>
+
+    <style name="CurrencyRate.Code">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/currency_rate_code_text</item>
+        <item name="android:textColor">@color/currency_rate_code_text</item>
+    </style>
+
+    <style name="CurrencyRate.Description">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">@dimen/currency_rate_description_text</item>
+        <item name="android:textColor">@color/currency_rate_description_text</item>
+    </style>
+</resources>

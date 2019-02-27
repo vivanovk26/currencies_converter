@@ -1,0 +1,21 @@
+<resources>
+
+    <style name="EmptyView">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textSize">@dimen/empty_view_text</item>
+        <item name="android:textColor">@color/empty_view_text</item>
+    </style>
+
+    <style name="Toolbar">
+        <item name="android:background">@color/toolbar_background</item>
+    </style>
+
+    <style name="ToolbarTitle">
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textSize">@dimen/toolbar_title_text</item>
+        <item name="android:textColor">@color/toolbar_title_text</item>
+    </style>
+</resources>

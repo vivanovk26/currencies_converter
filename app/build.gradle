@@ -1,0 +1,85 @@
+apply plugin: "com.android.application"
+apply plugin: "de.mannodermaus.android-junit5"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "kotlin-kapt"
+
+apply from: "dependencies.gradle"
+apply from: "sources.gradle"
+
+android {
+
+    buildToolsVersion "28.0.3"
+    compileSdkVersion 28
+
+    signingConfigs {
+        debug {
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+            storePassword "android"
+            storeFile file("debug.keystore")
+        }
+        release {
+            final File signFile = rootProject.file('app/sign.properties')
+            if (signFile.exists()) {
+                Properties properties = new Properties()
+                properties.load(new FileInputStream(signFile))
+                keyAlias properties.releaseKeyAlias
+                keyPassword properties.releaseKeyPassword
+                storePassword properties.releaseStorePassword
+                storeFile file(properties.releaseStoreFile)
+            }
+        }
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.vivanov.currenciesconverter"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "0.1.0"
+        setProperty("archivesBaseName", "CurrenciesConverter-" + versionName + "-" + versionCode)
+    }
+
+    lintOptions {
+        abortOnError false
+        fatal "StopShip"
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+
+    testOptions {
+        junitPlatform {
+            filters {
+                engines {
+                    include "spek2"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,4 @@
+<resources>
+
+    <integer name="max_fraction_digits">3</integer>
+</resources>

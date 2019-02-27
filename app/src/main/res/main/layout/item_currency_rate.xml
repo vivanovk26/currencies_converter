@@ -1,0 +1,67 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_currency_rate_height"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="horizontal"
+    android:padding="@dimen/item_currency_rate_spacing">
+
+    <LinearLayout
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdrv"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            fresco:actualImageScaleType="fitCenter"
+            fresco:failureImage="@drawable/ic_country_failure"/>
+
+        <TextView
+            android:id="@+id/tv_currency_symbol"
+            style="@style/CurrencyRate.Amount"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            tools:text="$"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/item_currency_rate_spacing"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_code"
+            style="@style/CurrencyRate.Code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="EUR"/>
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/CurrencyRate.Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_currency_rate_spacing"
+            tools:text="Euro"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_amount"
+        style="@style/CurrencyRate.Amount"
+        android:layout_width="@dimen/item_currency_rate_amount_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        tools:ignore="Autofill"
+        tools:text="200.00"/>
+</LinearLayout>
