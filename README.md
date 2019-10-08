@@ -1,7 +1,7 @@
  Currencies converter
 ====
 
- This app is a currency converter. Each currency row has an input to enter amount of money. When you’re changing the amount the app simultaneously
+ This app is a currency converter (success test app in one fintech company). Each currency row has an input to enter amount of money. When you’re changing the amount the app simultaneously
 updates the corresponding value for other currencies. Data updates every second. Please notice that every time you change a row (item
 click or changing a text) application refreshes selected currency rate.
  
